@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Samuel Frieman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="scanline"></div>
+    <div class="grid-background"></div>
+
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-brand">SF</div>
+            <ul class="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="work.html">WORK</a></li>
+                <li><a href="projects.html" class="active">PROJECTS</a></li>
+                <li><a href="skills.html">SKILLS</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>PROJECTS</h1>
+            <p>Building tools that solve real security problems</p>
+        </div>
+
+        <section class="section">
+            <div class="project-showcase">
+                <h3>Core Recon: Passive Reconnaissance Platform</h3>
+                <div class="project-tech-stack">FastAPI • React • Python • JavaScript</div>
+                <p class="project-description">
+                    I wanted to build something that would make OSINT investigations not just effective, but elegant. 
+                    Core Recon is a full-stack passive reconnaissance platform aggregating intelligence from five 
+                    distinct threat feed sources with comprehensive domain analysis and professional PDF reporting.
+                    <br><br>
+                    What makes it different? It's built by someone who actually does this work. The workflow mirrors 
+                    how I approach real reconnaissance engagements—starting broad with domain enumeration, then drilling 
+                    down into specific indicators of compromise. The platform has tracked over 500 malicious IOCs with 
+                    95% accuracy in my SIEM lab environment.
+                </p>
+                <a href="https://github.com/SamFrieman/core-recon-passive-reconnaissance" target="_blank" class="project-link">
+                    <span>→</span> VIEW ON GITHUB
+                </a>
+                <div class="story-tags">
+                    <span class="tag">FastAPI</span>
+                    <span class="tag">React</span>
+                    <span class="tag">OSINT</span>
+                    <span class="tag">THREAT INTELLIGENCE</span>
+                </div>
+            </div>
+
+            <div class="project-showcase">
+                <h3>C2 Beacon Detector: ML-Powered Threat Detection</h3>
+                <div class="project-tech-stack">JavaScript • Machine Learning</div>
+                <p class="project-description">
+                    Command and Control beacons are notoriously difficult to detect because they're designed to blend 
+                    in with legitimate network traffic. Traditional signature-based detection fails when attackers use 
+                    custom C2 frameworks or randomize their beaconing patterns.
+                    <br><br>
+                    My C2 Beacon Detector takes a different approach—using machine learning to identify the subtle 
+                    behavioral patterns that distinguish malicious communications from normal traffic. It analyzes 
+                    timing patterns, request structures, and protocol anomalies to flag suspicious activity that would 
+                    slip past conventional defenses.
+                </p>
+                <a href="https://github.com/SamFrieman/c2-beacon-detector" target="_blank" class="project-link">
+                    <span>→</span> VIEW ON GITHUB
+                </a>
+                <div class="story-tags">
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">C2 DETECTION</span>
+                    <span class="tag">NETWORK ANALYSIS</span>
+                </div>
+            </div>
+
+            <div class="project-showcase">
+                <h3>SOC Automation Platform: Streamlining Incident Response</h3>
+                <div class="project-tech-stack">Python</div>
+                <p class="project-description">
+                    After spending time in SOC environments, I noticed the same pattern: analysts drowning in repetitive 
+                    tasks that could be automated, while genuine threats sometimes slip through because of alert fatigue.
+                    <br><br>
+                    The SOC Automation Platform addresses this by orchestrating common incident response 
+                    workflows—automated enrichment, threat intelligence lookups, and ticket management. The goal is 
+                    simple: let the machines handle the mechanical parts so analysts can focus on investigations that 
+                    actually require human expertise.
+                </p>
+                <a href="https://github.com/SamFrieman/soc-automation-platform" target="_blank" class="project-link">
+                    <span>→</span> VIEW ON GITHUB
+                </a>
+                <div class="story-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">SOC AUTOMATION</span>
+                    <span class="tag">INCIDENT RESPONSE</span>
+                </div>
+            </div>
+
+            <div class="project-showcase">
+                <h3>Threat Intelligence Aggregation System</h3>
+                <div class="project-tech-stack">Python • FastAPI</div>
+                <p class="project-description">
+                    Developed an automated Python script that aggregates 5 distinct threat feed sources to produce 
+                    daily threat briefings with a 95% accuracy rate. Integrated the briefing system into a SIEM lab 
+                    environment, tracking over 500 malicious indicators of compromise.
+                </p>
+                <div class="story-tags">
+                    <span class="tag">THREAT INTEL</span>
+                    <span class="tag">SIEM</span>
+                    <span class="tag">IOC TRACKING</span>
+                </div>
+            </div>
+
+            <div class="project-showcase">
+                <h3>GRC Risk Assessment & Compliance Mapping</h3>
+                <div class="project-tech-stack">University Coursework</div>
+                <p class="project-description">
+                    Led 4-person team conducting enterprise risk assessment against NIST CSF, identifying control gaps 
+                    and presenting remediation roadmap to stakeholders. This project showcased the ability to 
+                    communicate complex security concepts to non-technical audiences and attention to regulatory details.
+                </p>
+                <div class="story-tags">
+                    <span class="tag">GRC</span>
+                    <span class="tag">NIST CSF</span>
+                    <span class="tag">RISK ASSESSMENT</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="mailto:Samuel.frieman@spartans.ut.edu">Email</a>
+                <a href="https://linkedin.com/in/samuel-frieman" target="_blank">LinkedIn</a>
+                <a href="https://github.com/SamFrieman" target="_blank">GitHub</a>
+                <a href="tel:+18566736308">Phone: (856) 673-6308</a>
+            </div>
+            <div class="copyright">
+                © 2026 Samuel Frieman | Cybersecurity Professional
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
