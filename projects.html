@@ -34,17 +34,19 @@
 
         <section class="section">
             <div class="project-showcase">
-                <h3>Core Recon: Passive Reconnaissance Platform</h3>
-                <div class="project-tech-stack">FastAPI • React • Python • JavaScript</div>
+                <h3>CoreRecon: Passive Reconnaissance Platform</h3>
+                <div class="project-tech-stack">FastAPI • React • Python • Docker • Redis • Celery</div>
                 <p class="project-description">
-                    I wanted to build something that would make OSINT investigations not just effective, but elegant. 
-                    Core Recon is a full-stack passive reconnaissance platform aggregating intelligence from five 
-                    distinct threat feed sources with comprehensive domain analysis and professional PDF reporting.
+                    Engineered full-stack reconnaissance web app using FastAPI and React with 8 passive intelligence 
+                    modules (DNS analysis, SSL/TLS validation, WHOIS lookup, subdomain enumeration via crt.sh/HackerTarget, 
+                    technology fingerprinting, and security header analysis). Built robust input sanitization preventing 
+                    XSS and SQL injection attacks across all user inputs.
                     <br><br>
-                    What makes it different? It's built by someone who actually does this work. The workflow mirrors 
-                    how I approach real reconnaissance engagements—starting broad with domain enumeration, then drilling 
-                    down into specific indicators of compromise. The platform has tracked over 500 malicious IOCs with 
-                    95% accuracy in my SIEM lab environment.
+                    Implemented automated PDF reporting with comprehensive risk scoring algorithm analyzing certificate 
+                    validity, protocol configuration, and security posture. SQLite persistence layer tracks 500+ malicious 
+                    indicators with historical scan correlation and repeat target detection. Responsive React interface 
+                    features expandable intelligence cards, real-time validation, and dynamic risk visualizations using 
+                    SVG animations—generating detailed multi-page reports in under 30 seconds.
                 </p>
                 <a href="https://github.com/SamFrieman/core-recon-passive-reconnaissance" target="_blank" class="project-link">
                     <span>→</span> VIEW ON GITHUB
@@ -52,32 +54,52 @@
                 <div class="story-tags">
                     <span class="tag">FastAPI</span>
                     <span class="tag">React</span>
-                    <span class="tag">OSINT</span>
-                    <span class="tag">THREAT INTELLIGENCE</span>
+                    <span class="tag">8 INTEL MODULES</span>
+                    <span class="tag">PDF REPORTING</span>
+                    <span class="tag">RISK SCORING</span>
                 </div>
             </div>
 
             <div class="project-showcase">
-                <h3>C2 Beacon Detector: ML-Powered Threat Detection</h3>
-                <div class="project-tech-stack">JavaScript • Machine Learning</div>
+                <h3>Bakery Encoder/Decoder: Multi-Cipher Analysis Tool</h3>
+                <div class="project-tech-stack">JavaScript • Cryptography</div>
                 <p class="project-description">
-                    Command and Control beacons are notoriously difficult to detect because they're designed to blend 
-                    in with legitimate network traffic. Traditional signature-based detection fails when attackers use 
-                    custom C2 frameworks or randomize their beaconing patterns.
+                    Comprehensive client-side tool supporting 50+ bidirectional encoding/cipher methods across 5 categories: 
+                    Base encodings (Base64/32/16/85/58/62), web encodings (URL/HTML/Unicode), numeric representations 
+                    (Binary/Octal/Hex), substitution ciphers (ROT1-25, Caesar, Atbash, Morse, Bacon), and transposition methods.
                     <br><br>
-                    My C2 Beacon Detector takes a different approach—using machine learning to identify the subtle 
-                    behavioral patterns that distinguish malicious communications from normal traffic. It analyzes 
-                    timing patterns, request structures, and protocol anomalies to flag suspicious activity that would 
-                    slip past conventional defenses.
+                    Built intelligent auto-detection system with weighted quality scoring algorithm achieving 85%+ accuracy. 
+                    Developed comprehensive threat pattern detection engine scanning for 40+ malicious command indicators 
+                    across PowerShell execution, system enumeration, and obfuscation utilities. Implemented defense-in-depth 
+                    security with client-side rate limiting and XSS pattern blocking—fully offline with <100ms processing latency.
                 </p>
-                <a href="https://github.com/SamFrieman/c2-beacon-detector" target="_blank" class="project-link">
-                    <span>→</span> VIEW ON GITHUB
-                </a>
                 <div class="story-tags">
-                    <span class="tag">Machine Learning</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">C2 DETECTION</span>
-                    <span class="tag">NETWORK ANALYSIS</span>
+                    <span class="tag">CRYPTOGRAPHY</span>
+                    <span class="tag">THREAT DETECTION</span>
+                    <span class="tag">50+ CIPHERS</span>
+                    <span class="tag">MALWARE ANALYSIS</span>
+                    <span class="tag">OFFLINE CAPABLE</span>
+                </div>
+            </div>
+
+            <div class="project-showcase">
+                <h3>Company Research Tool: Automated Intelligence Platform</h3>
+                <div class="project-tech-stack">React • Claude API • Web Search</div>
+                <p class="project-description">
+                    Automated company intelligence platform leveraging Claude Sonnet 4 API with integrated web search to 
+                    aggregate information across 6 research categories: company overview, recent news/deals, financial 
+                    performance, leadership team, products/services, and partnerships/M&A.
+                    <br><br>
+                    Implemented sequential API orchestration executing targeted search queries with category-specific keywords, 
+                    processing responses while maintaining source attribution. Built intelligent report compilation system with 
+                    structured 8-section format including executive summary, inline citations, and comprehensive source bibliography. 
+                    Features real-time progress indicators and text-based export for offline archival.
+                </p>
+                <div class="story-tags">
+                    <span class="tag">AI INTEGRATION</span>
+                    <span class="tag">WEB SEARCH</span>
+                    <span class="tag">THREAT INTEL</span>
+                    <span class="tag">REPORT GENERATION</span>
                 </div>
             </div>
 
