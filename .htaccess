@@ -1,15 +1,8 @@
-
-# =====================================================
-# SAMUEL FRIEMAN PORTFOLIO - SECURITY CONFIGURATION
-# =====================================================
 # Comprehensive security hardening for static portfolio
 # Protects against: XSS, Clickjacking, MIME sniffing,
 # Information disclosure, and common web exploits
-# =====================================================
 
-# ------------------------------------------------------
 # CONTENT SECURITY POLICY (CSP)
-# ------------------------------------------------------
 # Strict CSP to prevent XSS attacks
 <IfModule mod_headers.c>
     # Main Content Security Policy
@@ -28,9 +21,7 @@
     # Header set Content-Security-Policy-Report-Only "default-src 'self'; report-uri /csp-report"
 </IfModule>
 
-# ------------------------------------------------------
 # SECURITY HEADERS
-# ------------------------------------------------------
 <IfModule mod_headers.c>
     # Prevent clickjacking attacks
     Header always set X-Frame-Options "DENY"
@@ -61,14 +52,10 @@
     Header always set Cross-Origin-Resource-Policy "same-origin"
 </IfModule>
 
-# ------------------------------------------------------
 # DISABLE DIRECTORY LISTING
-# ------------------------------------------------------
 Options -Indexes
 
-# ------------------------------------------------------
 # PROTECT SENSITIVE FILES
-# ------------------------------------------------------
 <FilesMatch "^\.">
     Order allow,deny
     Deny from all
@@ -86,22 +73,16 @@ Options -Indexes
     Deny from all
 </FilesMatch>
 
-# ------------------------------------------------------
 # DISABLE SERVER SIGNATURE
-# ------------------------------------------------------
 ServerSignature Off
 
-# ------------------------------------------------------
 # PREVENT ACCESS TO BACKUP FILES
-# ------------------------------------------------------
 <FilesMatch "\.(bak|backup|old|tmp)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# ------------------------------------------------------
 # HTTP TO HTTPS REDIRECT
-# ------------------------------------------------------
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
@@ -119,9 +100,7 @@ ServerSignature Off
     # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 </IfModule>
 
-# ------------------------------------------------------
 # PREVENT HOTLINKING
-# ------------------------------------------------------
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
@@ -133,9 +112,7 @@ ServerSignature Off
     RewriteRule \.(jpg|jpeg|png|gif|svg|webp)$ - [F,L]
 </IfModule>
 
-# ------------------------------------------------------
 # BLOCK COMMON ATTACK PATTERNS
-# ------------------------------------------------------
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
@@ -165,9 +142,7 @@ ServerSignature Off
     RewriteRule .* - [F,L]
 </IfModule>
 
-# ------------------------------------------------------
 # RATE LIMITING (if mod_ratelimit available)
-# ------------------------------------------------------
 <IfModule mod_ratelimit.c>
     # Limit to 400KB/s per connection
     SetOutputFilter RATE_LIMIT
@@ -196,9 +171,7 @@ ServerSignature Off
     </FilesMatch>
 </IfModule>
 
-# ------------------------------------------------------
 # FILE UPLOAD PROTECTION (if forms added later)
-# ------------------------------------------------------
 # Disable script execution in upload directories
 <DirectoryMatch "^/.*/uploads/">
     php_flag engine off
@@ -206,27 +179,19 @@ ServerSignature Off
     RemoveType .php .phtml .php3 .php4 .php5 .php6 .phps .cgi .pl .py .jsp .asp .sh .cgi
 </DirectoryMatch>
 
-# ------------------------------------------------------
 # SUBRESOURCE INTEGRITY (SRI) HEADERS
-# ------------------------------------------------------
 # Note: SRI is implemented in HTML files for external resources
 
-# ------------------------------------------------------
 # ERROR PAGES
-# ------------------------------------------------------
 ErrorDocument 400 /error-pages/400.html
 ErrorDocument 401 /error-pages/401.html
 ErrorDocument 403 /error-pages/403.html
 ErrorDocument 404 /error-pages/404.html
 ErrorDocument 500 /error-pages/500.html
 
-# ------------------------------------------------------
 # COMPRESSION (for performance)
-# ------------------------------------------------------
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
 </IfModule>
 
-# ------------------------------------------------------
 # END SECURITY CONFIGURATION
-# ------------------------------------------------------
