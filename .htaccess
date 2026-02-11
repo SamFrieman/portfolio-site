@@ -1,1 +1,232 @@
 
+# =====================================================
+# SAMUEL FRIEMAN PORTFOLIO - SECURITY CONFIGURATION
+# =====================================================
+# Comprehensive security hardening for static portfolio
+# Protects against: XSS, Clickjacking, MIME sniffing,
+# Information disclosure, and common web exploits
+# =====================================================
+
+# ------------------------------------------------------
+# CONTENT SECURITY POLICY (CSP)
+# ------------------------------------------------------
+# Strict CSP to prevent XSS attacks
+<IfModule mod_headers.c>
+    # Main Content Security Policy
+    Header set Content-Security-Policy "\
+        default-src 'self'; \
+        script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+        font-src 'self' https://fonts.gstatic.com; \
+        img-src 'self' data: https:; \
+        connect-src 'self'; \
+        frame-ancestors 'none'; \
+        base-uri 'self'; \
+        form-action 'self';"
+    
+    # Report CSP violations (optional - uncomment and add reporting endpoint)
+    # Header set Content-Security-Policy-Report-Only "default-src 'self'; report-uri /csp-report"
+</IfModule>
+
+# ------------------------------------------------------
+# SECURITY HEADERS
+# ------------------------------------------------------
+<IfModule mod_headers.c>
+    # Prevent clickjacking attacks
+    Header always set X-Frame-Options "DENY"
+    
+    # Enable XSS filtering in browsers
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Referrer Policy - control information leakage
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Permissions Policy (formerly Feature Policy)
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+    
+    # HTTP Strict Transport Security (HSTS)
+    # Force HTTPS for 1 year including subdomains
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    
+    # Remove server information disclosure
+    Header unset Server
+    Header unset X-Powered-By
+    
+    # Cross-Origin policies
+    Header always set Cross-Origin-Embedder-Policy "require-corp"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>
+
+# ------------------------------------------------------
+# DISABLE DIRECTORY LISTING
+# ------------------------------------------------------
+Options -Indexes
+
+# ------------------------------------------------------
+# PROTECT SENSITIVE FILES
+# ------------------------------------------------------
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect configuration and sensitive files
+<FilesMatch "(^#.*#|\.(bak|conf|dist|fla|in[ci]|log|orig|psd|sh|sql|sw[op])|~)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect README, LICENSE, and other repository files
+<FilesMatch "(README|LICENSE|CHANGELOG|\.git.*|\.env.*|package\.json|composer\.json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ------------------------------------------------------
+# DISABLE SERVER SIGNATURE
+# ------------------------------------------------------
+ServerSignature Off
+
+# ------------------------------------------------------
+# PREVENT ACCESS TO BACKUP FILES
+# ------------------------------------------------------
+<FilesMatch "\.(bak|backup|old|tmp)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ------------------------------------------------------
+# HTTP TO HTTPS REDIRECT
+# ------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    
+    # Force www removal (or add www - uncomment preferred option)
+    # Remove www
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    
+    # Add www (alternative - comment out above and uncomment below)
+    # RewriteCond %{HTTP_HOST} !^www\. [NC]
+    # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# ------------------------------------------------------
+# PREVENT HOTLINKING
+# ------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Allow empty referrer and own domain
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?yourdomain\.com [NC]
+    
+    # Block hotlinking of images
+    RewriteRule \.(jpg|jpeg|png|gif|svg|webp)$ - [F,L]
+</IfModule>
+
+# ------------------------------------------------------
+# BLOCK COMMON ATTACK PATTERNS
+# ------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Block SQL injection attempts
+    RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR]
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.\\) [OR]
+    RewriteCond %{QUERY_STRING} (localhost|loopback|127\.0\.0\.1) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (\<|%3C).*iframe.*(\>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C)([^e]*e)+mbed.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C)([^o]*o)+bject.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} base64_(en|de)code\(.*\) [NC,OR]
+    RewriteCond %{QUERY_STRING} (%0|%A|%B|%C|%D|%E|%F)[0-9A-F] [NC,OR]
+    RewriteCond %{QUERY_STRING} (union|select|insert|cast|set|declare|drop|update|md5|benchmark) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Block user agent strings (common bots/scrapers)
+    RewriteCond %{HTTP_USER_AGENT} (libwww-perl|wget|python|nikto|curl|scan|java|winhttp|clshttp|loader) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (;|<|>|'|"|\)|\(|%0A|%0D|%27|%3C|%3E|%00) [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} (sqlmap|havij|acunetix|nmap|masscan) [NC]
+    RewriteRule .* - [F,L]
+    
+    # Block suspicious request methods
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK|DEBUG) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# ------------------------------------------------------
+# RATE LIMITING (if mod_ratelimit available)
+# ------------------------------------------------------
+<IfModule mod_ratelimit.c>
+    # Limit to 400KB/s per connection
+    SetOutputFilter RATE_LIMIT
+    SetEnv rate-limit 400
+</IfModule>
+
+# ------------------------------------------------------
+# CACHE CONTROL FOR SECURITY
+# ------------------------------------------------------
+<IfModule mod_headers.c>
+    # HTML files - no cache
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # CSS and JavaScript - cache with validation
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # Images and fonts - long cache
+    <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|woff|woff2|ttf|eot)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
+
+# ------------------------------------------------------
+# FILE UPLOAD PROTECTION (if forms added later)
+# ------------------------------------------------------
+# Disable script execution in upload directories
+<DirectoryMatch "^/.*/uploads/">
+    php_flag engine off
+    RemoveHandler .php .phtml .php3 .php4 .php5 .php6 .phps .cgi .pl .py .jsp .asp .sh .cgi
+    RemoveType .php .phtml .php3 .php4 .php5 .php6 .phps .cgi .pl .py .jsp .asp .sh .cgi
+</DirectoryMatch>
+
+# ------------------------------------------------------
+# SUBRESOURCE INTEGRITY (SRI) HEADERS
+# ------------------------------------------------------
+# Note: SRI is implemented in HTML files for external resources
+
+# ------------------------------------------------------
+# ERROR PAGES
+# ------------------------------------------------------
+ErrorDocument 400 /error-pages/400.html
+ErrorDocument 401 /error-pages/401.html
+ErrorDocument 403 /error-pages/403.html
+ErrorDocument 404 /error-pages/404.html
+ErrorDocument 500 /error-pages/500.html
+
+# ------------------------------------------------------
+# COMPRESSION (for performance)
+# ------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# ------------------------------------------------------
+# END SECURITY CONFIGURATION
+# ------------------------------------------------------
