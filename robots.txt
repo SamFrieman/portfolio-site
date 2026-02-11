@@ -1,9 +1,5 @@
-# =====================================================
-# SAMUEL FRIEMAN PORTFOLIO - ROBOTS.TXT
-# =====================================================
 # Controls search engine crawler access and
 # prevents indexing of sensitive directories
-# =====================================================
 
 # Allow legitimate search engines
 User-agent: Googlebot
