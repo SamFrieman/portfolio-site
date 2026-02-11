@@ -1,1 +1,77 @@
+# =====================================================
+# SAMUEL FRIEMAN PORTFOLIO - ROBOTS.TXT
+# =====================================================
+# Controls search engine crawler access and
+# prevents indexing of sensitive directories
+# =====================================================
 
+# Allow legitimate search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Block all other bots by default
+User-agent: *
+Disallow: /error-pages/
+Disallow: /*.bak$
+Disallow: /*.backup$
+Disallow: /*.old$
+Disallow: /*.tmp$
+Disallow: /.git/
+Disallow: /.env
+Disallow: /config/
+Disallow: /logs/
+
+# Block bad bots explicitly
+User-agent: Scrapy
+Disallow: /
+
+User-agent: wget
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+User-agent: HTTrack
+Disallow: /
+
+User-agent: Teleport
+Disallow: /
+
+User-agent: WebCopier
+Disallow: /
+
+User-agent: WebReaper
+Disallow: /
+
+User-agent: WebStripper
+Disallow: /
+
+User-agent: EmailCollector
+Disallow: /
+
+User-agent: EmailSiphon
+Disallow: /
+
+User-agent: EmailWolf
+Disallow: /
+
+User-agent: ExtractorPro
+Disallow: /
+
+# Sitemap location
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Crawl delay for respectful bots
+Crawl-delay: 1
