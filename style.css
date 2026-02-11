@@ -273,7 +273,7 @@ header {
     transform: translateY(-2px);
 }
 
-/* Threat Meter */
+/* Threat Meter / Core Skills */
 .threat-meter {
     background: rgba(31, 40, 51, 0.6);
     padding: 1.5rem;
@@ -295,17 +295,23 @@ header {
     gap: 1rem;
 }
 
-.stat-row {
+.threat-meter .stat-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 0;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem 0;
     border-bottom: 1px solid var(--grid-color);
 }
 
-.stat-label {
-    font-size: 0.85rem;
+.threat-meter .stat-row:last-child {
+    border-bottom: none;
+}
+
+.threat-meter .stat-label {
+    font-size: 0.9rem;
     color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
 .stat-value {
@@ -318,6 +324,31 @@ header {
 .stat-value.high { color: var(--threat-high); }
 .stat-value.medium { color: var(--threat-medium); }
 .stat-value.low { color: var(--threat-low); }
+
+/* Tool Tags Styling */
+.tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+
+.tool-tag {
+    padding: 0.3rem 0.7rem;
+    background: rgba(102, 252, 241, 0.15);
+    border: 1px solid var(--accent-cyan);
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: var(--accent-cyan);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tool-tag:hover {
+    background: rgba(102, 252, 241, 0.25);
+    box-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+    transform: translateY(-1px);
+}
 
 /* Section Headers */
 .section {
@@ -552,46 +583,6 @@ header {
     font-weight: 500;
 }
 
-/* Tool Tags Styling */
-.tool-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
-}
-
-.tool-tag {
-    padding: 0.3rem 0.7rem;
-    background: rgba(102, 252, 241, 0.15);
-    border: 1px solid var(--accent-cyan);
-    border-radius: 4px;
-    font-size: 0.75rem;
-    color: var(--accent-cyan);
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.tool-tag:hover {
-    background: rgba(102, 252, 241, 0.25);
-    box-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
-    transform: translateY(-1px);
-}
-
-/* Update stat-row to stack vertically */
-.threat-meter .stat-row {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--grid-color);
-}
-
-.threat-meter .stat-label {
-    font-size: 0.9rem;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
 /* Project Showcase */
 .project-showcase {
     background: var(--bg-secondary);
@@ -765,6 +756,7 @@ header {
     font-size: 0.75rem;
     color: var(--accent-green);
     font-weight: 500;
+    margin: 0.25rem;
 }
 
 .achievement-badge.in-progress {
