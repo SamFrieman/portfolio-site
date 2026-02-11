@@ -1,1 +1,17 @@
+# Security disclosure policy per RFC 9116
 
+Contact: mailto:Samuel.frieman@spartans.ut.edu
+Preferred-Languages: en
+Canonical: https://samfrieman.github.io/portfolio-site/security.txt
+
+# Disclosure Policy
+Policy: https://samfrieman.github.io/portfolio-site/security-policy
+
+# Security researchers: Please report vulnerabilities responsibly
+# We commit to:
+# - Acknowledge receipt within 48 hours
+# - Provide updates every 72 hours
+# - Credit researchers (with permission)
+# - Not pursue legal action against good faith security research
+
+Expires: 2027-12-31T23:59:59.000Z
