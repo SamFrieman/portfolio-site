@@ -197,3 +197,5 @@ This portfolio template is free to use and modify for personal use. Attribution 
 ---
 
 **Built by [Samuel Frieman](https://github.com/SamFrieman)** | Cybersecurity Professional
+**[Link](https://samfrieman.github.io/portfolio-site/)**
+
