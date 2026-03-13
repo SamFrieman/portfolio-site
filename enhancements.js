@@ -6,47 +6,179 @@
 (function () {
     'use strict';
 
-    /* ── Custom Crosshair Cursor ── */
+    /* ── Canvas Cursor — Precision Targeting Reticle ── */
     function initCursor() {
-        const ring = document.createElement('div');
-        const dot  = document.createElement('div');
-        ring.className = 'cursor-ring';
-        dot.className  = 'cursor-dot';
-        document.body.appendChild(ring);
-        document.body.appendChild(dot);
+        const cv = document.createElement('canvas');
+        cv.id = 'cursor-canvas';
+        document.body.appendChild(cv);
+        const ctx = cv.getContext('2d');
 
-        let mx = -100, my = -100, rx = -100, ry = -100;
-
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX;
-            my = e.clientY;
-            dot.style.left = mx + 'px';
-            dot.style.top  = my + 'px';
-        });
-
-        // Smooth ring follow
-        function animRing() {
-            rx += (mx - rx) * 0.14;
-            ry += (my - ry) * 0.14;
-            ring.style.left = rx + 'px';
-            ring.style.top  = ry + 'px';
-            requestAnimationFrame(animRing);
+        const DPR = window.devicePixelRatio || 1;
+        function resize() {
+            cv.style.width  = window.innerWidth  + 'px';
+            cv.style.height = window.innerHeight + 'px';
+            cv.width  = window.innerWidth  * DPR;
+            cv.height = window.innerHeight * DPR;
+            ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
         }
-        animRing();
+        resize();
+        window.addEventListener('resize', resize);
 
-        // Hover effect on interactive elements
-        const hoverSel = 'a, button, .quick-link-card, .highlight-card, .achievement-card, .tool-tag, .tag, .project-link';
-        document.querySelectorAll(hoverSel).forEach(el => {
-            el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
+        const CYN = [0, 245, 233];
+        const AMB = [245, 166, 35];
+        const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+
+        let mx = -300, my = -300, rx = -300, ry = -300;
+        let px = -300, py = -300;
+        let rot = 0;
+        let hovered = false;
+        let visible = true;
+
+        const TRAIL = 18;
+        const hist  = Array(TRAIL).fill(null).map(() => ({ x: -300, y: -300 }));
+        let histFrame = 0;
+
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        document.addEventListener('mouseleave', () => { visible = false; });
+        document.addEventListener('mouseenter', () => { visible = true; });
+
+        const SEL = 'a,button,.quick-link-card,.highlight-card,.achievement-card,.tool-tag,.tag,.project-link,.nav-links a';
+        document.querySelectorAll(SEL).forEach(el => {
+            el.addEventListener('mouseenter', () => { hovered = true; });
+            el.addEventListener('mouseleave', () => { hovered = false; });
         });
 
-        // Hide on leave
-        document.addEventListener('mouseleave', () => { ring.style.opacity = '0'; dot.style.opacity = '0'; });
-        document.addEventListener('mouseenter', () => { ring.style.opacity = '1'; dot.style.opacity = '1'; });
+        function glow(color, r) { ctx.shadowColor = rgba(color, 0.9); ctx.shadowBlur = r; }
+        function noGlow()        { ctx.shadowBlur = 0; }
+
+        function drawSegRing(x, y, r, color, alpha, lw, segs, gap, offset) {
+            const step = (Math.PI * 2) / segs;
+            ctx.strokeStyle = rgba(color, alpha);
+            ctx.lineWidth   = lw;
+            ctx.lineCap     = 'round';
+            for (let i = 0; i < segs; i++) {
+                const s = offset + i * step + gap / 2;
+                const e = offset + (i + 1) * step - gap / 2;
+                ctx.beginPath();
+                ctx.arc(x, y, r, s, e);
+                ctx.stroke();
+            }
+        }
+
+        function drawSweep(x, y, r, angle, color) {
+            const fan = Math.PI / 3;
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.arc(x, y, r, angle - fan, angle);
+            ctx.closePath();
+            const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+            g.addColorStop(0,   rgba(color, 0.0));
+            g.addColorStop(0.5, rgba(color, 0.02));
+            g.addColorStop(1,   rgba(color, 0.1));
+            ctx.fillStyle = g;
+            ctx.fill();
+            // leading edge
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + Math.cos(angle) * r, y + Math.sin(angle) * r);
+            glow(color, 8);
+            ctx.strokeStyle = rgba(color, 0.45);
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            noGlow();
+            ctx.restore();
+        }
+
+        function draw() {
+            const W = window.innerWidth, H = window.innerHeight;
+            ctx.clearRect(0, 0, W, H);
+
+            if (!visible) { requestAnimationFrame(draw); return; }
+
+            const col  = hovered ? AMB : CYN;
+            const R1   = hovered ? 14 : 11;
+            const R2   = hovered ? 26 : 22;
+            const spd2 = hovered ? 1.8 : 0.6;
+
+            rx += (mx - rx) * 0.16;
+            ry += (my - ry) * 0.16;
+
+            const vx = mx - px, vy = my - py;
+            const spd = Math.sqrt(vx * vx + vy * vy);
+            const mAng = Math.atan2(vy, vx);
+            px = mx; py = my;
+
+            rot += spd2;
+
+            // Trail
+            if (histFrame % 2 === 0) { hist.unshift({ x: mx, y: my }); hist.pop(); }
+            histFrame++;
+            hist.forEach((h, i) => {
+                const t = 1 - i / TRAIL;
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, Math.max(0.5, 2.5 * t), 0, Math.PI * 2);
+                ctx.fillStyle = rgba(col, t * 0.3);
+                ctx.fill();
+            });
+
+            // Radar sweep
+            drawSweep(rx, ry, R2 + 6, rot * Math.PI / 180, col);
+
+            // Outer segmented ring (4 segments, rotates)
+            glow(col, 7);
+            drawSegRing(rx, ry, R2, col, 0.5, 1, 4, 0.38, rot * Math.PI / 180);
+            noGlow();
+
+            // Inner segmented ring (3 segments, counter-rotates)
+            glow(col, 4);
+            drawSegRing(rx, ry, R1, col, 0.7, 1.2, 3, 0.55, -rot * 1.4 * Math.PI / 180);
+            noGlow();
+
+            // Cardinal ticks outside outer ring
+            [0, 90, 180, 270].forEach(deg => {
+                const a  = deg * Math.PI / 180;
+                glow(col, 5);
+                ctx.beginPath();
+                ctx.moveTo(rx + Math.cos(a) * (R2 + 5), ry + Math.sin(a) * (R2 + 5));
+                ctx.lineTo(rx + Math.cos(a) * (R2 + 12), ry + Math.sin(a) * (R2 + 12));
+                ctx.strokeStyle = rgba(col, 0.75);
+                ctx.lineWidth   = 1.5;
+                ctx.lineCap     = 'round';
+                ctx.stroke();
+                noGlow();
+            });
+
+            // Centre dot — velocity stretched
+            ctx.save();
+            ctx.translate(mx, my);
+            ctx.rotate(spd > 1 ? mAng : 0);
+            const stretch = Math.min(1 + spd * 0.07, 2.5);
+            ctx.scale(stretch, 1 / stretch);
+            glow(col, 12);
+            ctx.beginPath();
+            ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = hovered ? rgba(AMB, 1) : '#ffffff';
+            ctx.fill();
+            noGlow();
+            ctx.restore();
+
+            // Hover pulse ring
+            if (hovered) {
+                const pulse = 0.5 + 0.5 * Math.sin(Date.now() * 0.008);
+                ctx.beginPath();
+                ctx.arc(rx, ry, R2 + 14 + pulse * 6, 0, Math.PI * 2);
+                ctx.strokeStyle = rgba(AMB, 0.1 + pulse * 0.08);
+                ctx.lineWidth   = 1;
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        requestAnimationFrame(draw);
     }
 
-    /* ── Typewriter effect for subtitle ── */
     function initTypewriter() {
         const el = document.querySelector('.hero-text .title');
         if (!el) return;
@@ -151,17 +283,6 @@
         });
     }
 
-    /* ── Hover registration for cursor ── */
-    function refreshCursorHover() {
-        const hoverSel = 'a, button, .quick-link-card, .highlight-card, .achievement-card, .tool-tag, .tag, .project-link';
-        const ring = document.querySelector('.cursor-ring');
-        if (!ring) return;
-        document.querySelectorAll(hoverSel).forEach(el => {
-            el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
-        });
-    }
-
     /* ── Init ── */
     function init() {
         initCursor();
@@ -170,7 +291,6 @@
         initGlitchBursts();
         setActiveNav();
         initSmoothScroll();
-        setTimeout(refreshCursorHover, 100);
     }
 
     if (document.readyState === 'loading') {
