@@ -46,8 +46,16 @@
         document.addEventListener('mouseenter', () => { visible = true; });
 
         function refreshHoverTargets() {
-            const SEL = 'a,button,.quick-link-card,.highlight-card,.achievement-card,.tool-tag,.tag,.project-link,.nav-links a,.story-card,.ttp-category,.ctf-card,.profile-card';
+            const SEL = [
+                'a', 'button',
+                '.quick-link-card', '.highlight-card', '.achievement-card',
+                '.tool-tag', '.tag', '.project-link', '.project-showcase',
+                '.nav-links a', '.story-card',
+                '.ttp-category', '.ctf-compact-card', '.profile-card',
+            ].join(',');
             document.querySelectorAll(SEL).forEach(el => {
+                if (el._cursorBound) return; /* prevent duplicate listeners */
+                el._cursorBound = true;
                 el.addEventListener('mouseenter', () => { hovered = true; });
                 el.addEventListener('mouseleave', () => { hovered = false; });
             });
@@ -293,7 +301,7 @@
         const fibMs = [0, 55, 89, 144, 233, 377, 610];
         const els   = document.querySelectorAll(
             '.story-card,.project-showcase,.ttp-category,.achievement-card,' +
-            '.highlight-card,.quick-link-card,.ctf-card,.profile-card'
+            '.highlight-card,.quick-link-card,.ctf-compact-card,.profile-card'
         );
 
         els.forEach((el, i) => {
