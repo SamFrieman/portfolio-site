@@ -30,7 +30,7 @@
         const AMB = [245, 166, 35];
         const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
-        let mx = -300, my = -300, rx = -300, ry = -300;
+        let mx = -300, my = -300;
         let rot = 0;
         let hovered = false;
         let visible = true;
@@ -80,14 +80,12 @@
             const R2   = hovered ? 26 : 22;
             const spd2 = hovered ? 1.8 : 0.6;
 
-            rx += (mx - rx) * 0.16;
-            ry += (my - ry) * 0.16;
             rot += spd2;
 
-            /* outer ring */
-            drawSegRing(rx, ry, R2, col, 0.5, 1,   4, 0.38,  rot * Math.PI / 180);
-            /* inner ring */
-            drawSegRing(rx, ry, R1, col, 0.7, 1.2, 3, 0.55, -rot * 1.4 * Math.PI / 180);
+            /* outer ring — snapped to cursor */
+            drawSegRing(mx, my, R2, col, 0.5, 1,   4, 0.38,  rot * Math.PI / 180);
+            /* inner ring — snapped to cursor */
+            drawSegRing(mx, my, R1, col, 0.7, 1.2, 3, 0.55, -rot * 1.4 * Math.PI / 180);
 
             /* centre dot */
             ctx.beginPath();
@@ -99,7 +97,7 @@
             if (hovered) {
                 const pulse = 0.5 + 0.5 * Math.sin(Date.now() * 0.008);
                 ctx.beginPath();
-                ctx.arc(rx, ry, R2 + 14 + pulse * 6, 0, Math.PI * 2);
+                ctx.arc(mx, my, R2 + 14 + pulse * 6, 0, Math.PI * 2);
                 ctx.strokeStyle = rgba(AMB, 0.1 + pulse * 0.08);
                 ctx.lineWidth   = 1;
                 ctx.stroke();
