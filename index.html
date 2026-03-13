@@ -12,10 +12,8 @@
 </head>
 <body>
 
-    <!-- ═══════════════════════ LOADING SCREEN ═══════════════════════ -->
     <div class="loading-overlay" id="loader">
         <div class="l-grid"></div>
-        <div class="l-scanline"></div>
         <div class="l-stage">
             <canvas id="loader-canvas" width="340" height="340"></canvas>
             <div class="l-hud">
@@ -33,7 +31,6 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════ ALERT TICKER ═══════════════════════ -->
     <div class="alert-ticker" aria-hidden="true">
         <div class="ticker-label">INTEL FEED</div>
         <div class="ticker-track">
@@ -64,10 +61,8 @@
         </div>
     </div>
 
-    <!-- Hex Grid Background -->
     <div class="grid-background"></div>
 
-    <!-- Navigation -->
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-brand">SF</div>
@@ -82,7 +77,6 @@
     </nav>
 
     <div class="container">
-        <!-- Header / Command Center -->
         <header>
             <div class="header-corner top-left"></div>
             <div class="header-corner top-right"></div>
@@ -94,12 +88,8 @@
                     <div class="status-indicator"></div>
                     <span>SYSTEM ONLINE</span>
                 </div>
-                <div class="status-item">
-                    <span>SECURITY POSTURE: HIGH</span>
-                </div>
-                <div class="status-item">
-                    <span>THREAT LEVEL: LOW</span>
-                </div>
+                <div class="status-item"><span>SECURITY POSTURE: HIGH</span></div>
+                <div class="status-item"><span>THREAT LEVEL: LOW</span></div>
                 <div class="status-item" id="live-clock">
                     <span id="clock-display">--:--:-- UTC</span>
                 </div>
@@ -110,8 +100,11 @@
                     <h1><span class="glitch" data-text="SAMUEL FRIEMAN">SAMUEL FRIEMAN</span></h1>
                     <div class="title"><span class="typewriter-cursor"></span></div>
                     <p class="bio">
-                        Defending digital infrastructure against sophisticated threats through threat hunting, 
-                        security automation, and enterprise defense architecture.
+                        I build tools that make security teams faster and find risks that standard checklists miss.
+                        At WIA, I surfaced 40+ critical vulnerabilities across M&amp;A targets using passive OSINT 
+                        before deals closed — the kind of risk that becomes a liability the moment ink dries. 
+                        I work best at the intersection of <strong style="color:var(--accent-cyan)">technical depth</strong> 
+                        and <strong style="color:var(--accent-cyan)">business context</strong>.
                     </p>
                     <div class="contact-links">
                         <a href="mailto:Samuel.frieman@spartans.ut.edu">📧 Email</a>
@@ -178,33 +171,31 @@
             </div>
         </header>
 
-        <!-- Quick Links -->
         <section class="section">
             <div class="quick-links-grid">
                 <a href="work.html" class="quick-link-card">
-                    <div class="quick-link-icon">💼</div>
+                    <div class="quick-link-icon"></div>
                     <div class="quick-link-title">WORK EXPERIENCE</div>
-                    <div class="quick-link-desc">Stories from M&A security assessments, enterprise deployments, and SOC operations</div>
+                    <div class="quick-link-desc">STAR-format stories from M&amp;A security assessments, enterprise deployments, and SOC automation — decisions and trade-offs included, not just outcomes</div>
                 </a>
                 <a href="projects.html" class="quick-link-card">
-                    <div class="quick-link-icon">🛠️</div>
+                    <div class="quick-link-icon"></div>
                     <div class="quick-link-title">PROJECTS</div>
-                    <div class="quick-link-desc">Reconnaissance platforms, C2 detection, and threat intelligence systems</div>
+                    <div class="quick-link-desc">Why I built each tool, what problem it solves, what I chose not to build — and the actual impact beyond the feature list</div>
                 </a>
                 <a href="skills.html" class="quick-link-card">
-                    <div class="quick-link-icon">⚡</div>
+                    <div class="quick-link-icon"></div>
                     <div class="quick-link-title">TECHNICAL SKILLS</div>
-                    <div class="quick-link-desc">Open source intelligence, GRC frameworks, development stack, and security tools</div>
+                    <div class="quick-link-desc">OSINT, GRC frameworks, development stack, and security tooling — organized by how I actually use them</div>
                 </a>
                 <a href="about.html" class="quick-link-card">
-                    <div class="quick-link-icon">👤</div>
+                    <div class="quick-link-icon"></div>
                     <div class="quick-link-title">ABOUT</div>
-                    <div class="quick-link-desc">Education, certifications, CTF achievements, and professional background</div>
+                    <div class="quick-link-desc">Education, certs, CTF context — plus an honest SWOT of strengths, growth areas, and what I'm looking for next</div>
                 </a>
             </div>
         </section>
 
-        <!-- Recent Highlights -->
         <section class="section">
             <div class="section-header">
                 <span class="bracket">[</span>
@@ -215,36 +206,32 @@
             <div class="highlights-grid">
                 <div class="highlight-card">
                     <div class="highlight-label">LATEST WORK</div>
-                    <div class="highlight-title">Enterprise Security Deployment</div>
+                    <div class="highlight-title">M&amp;A Threat Intelligence at Scale</div>
                     <div class="highlight-text">
-                        Deployed Microsoft Entra ID, Defender, and Intune across World Insurance Associates, 
-                        improving security posture by 35% while analyzing 300+ NIST controls.
+                        Built and executed passive OSINT methodology across 40+ acquisition targets — surfacing critical SQL injection and XSS findings before deals closed. Passive-only by design: active scanning creates legal exposure during pre-authorization recon.
                     </div>
-                    <a href="work.html" class="highlight-link">Read More →</a>
+                    <a href="work.html" class="highlight-link">Read the Story →</a>
                 </div>
                 <div class="highlight-card">
                     <div class="highlight-label">RECENT PROJECT</div>
-                    <div class="highlight-title">Core Recon Platform</div>
+                    <div class="highlight-title">CoreRecon: 35 min → 30 sec</div>
                     <div class="highlight-text">
-                        Engineered full-stack reconnaissance web app using FastAPI and React with 8 passive intelligence 
-                        modules, automated PDF reporting with risk scoring, and XSS/SQL injection input sanitization.
+                        8 passive intelligence modules in parallel. Built because M&amp;A due diligence doesn't scale to 40 targets with manual per-tool workflows. Client-side architecture means no cloud data handling risks for sensitive pre-acquisition targets.
                     </div>
-                    <a href="projects.html" class="highlight-link">View Project →</a>
+                    <a href="projects.html" class="highlight-link">See the Design Decisions →</a>
                 </div>
                 <div class="highlight-card">
                     <div class="highlight-label">ACHIEVEMENT</div>
-                    <div class="highlight-title">Swimmer CTF Top 20%</div>
+                    <div class="highlight-title">Trace Labs OSINT CTF — Top 10</div>
                     <div class="highlight-text">
-                        Ranked 128th out of 688 competitors in January 2026, demonstrating strong 
-                        technical capabilities in a competitive international environment.
+                        Real missing persons cases, real law enforcement handoff — not a gamified challenge. Consistent top-25 placements across three events reflects repeatable intelligence methodology. The discipline is the same one I apply professionally.
                     </div>
-                    <a href="about.html" class="highlight-link">See Achievements →</a>
+                    <a href="about.html" class="highlight-link">See Full CTF Context →</a>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-links">
@@ -256,7 +243,6 @@
         </div>
     </footer>
 
-    <!-- ═══════════════════════ LOADER SCRIPT ═══════════════════════ -->
     <script>
     (() => {
     'use strict';
@@ -285,13 +271,12 @@
     function addWave(){if(waves.length>=2)return;const lat=Math.acos(2*Math.random()-1),lon=Math.random()*Math.PI*2;waves.push({ox:Math.sin(lat)*Math.cos(lon),oy:Math.cos(lat),oz:Math.sin(lat)*Math.sin(lon),radius:0,age:0,life:260+Math.random()*80});}
     addWave();setInterval(addWave,3200);
     const ry=(x,z,a)=>[x*Math.cos(a)+z*Math.sin(a),-x*Math.sin(a)+z*Math.cos(a)];
-    const rx=(y,z,a)=>[y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];
+    const rx2=(y,z,a)=>[y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];
     const dot3=(ax,ay,az,bx,by,bz)=>ax*bx+ay*by+az*bz;
     let rotY=0,rotX=.26,t=0;
-    function xf(px,py,pz){const[x,z]=ry(px,pz,rotY);const[y,z2]=rx(py,z,rotX);const s=520/(z2+520);return{sx:cx+x*s,sy:cy+y*s,depth:z2,s};}
+    function xf(px,py,pz){const[x,z]=ry(px,pz,rotY);const[y,z2]=rx2(py,z,rotX);const s=520/(z2+520);return{sx:cx+x*s,sy:cy+y*s,depth:z2,s};}
     function draw(){ctx.clearRect(0,0,W,H);const halo=ctx.createRadialGradient(cx,cy,R*.05,cx,cy,R*1.45);halo.addColorStop(0,rgba(CC,.04));halo.addColorStop(.65,rgba(CC,.012));halo.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=halo;ctx.beginPath();ctx.arc(cx,cy,R*1.45,0,Math.PI*2);ctx.fill();waves=waves.filter(w=>w.age<w.life);waves.forEach(w=>{w.age++;const p=w.age/w.life;const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;w.radius=e*Math.PI;});DOTS.forEach(d=>{let b=0;waves.forEach(w=>{const c=Math.min(1,Math.max(-1,dot3(d.x,d.y,d.z,w.ox,w.oy,w.oz)));const ad=Math.acos(c),band=0.38,diff=Math.abs(ad-w.radius);if(diff<band){const wf=Math.sin((w.age/w.life)*Math.PI);const pr=(Math.cos((diff/band)*Math.PI)+1)/2;b+=wf*pr*.85;}});d.pulse+=(Math.min(1,b)-d.pulse)*.08;});const rendered=DOTS.map(d=>{const p=xf(d.x*R,d.y*R,d.z*R);const df=(p.depth+R)/(2*R);const br=.22+.14*Math.sin(t*d.sp*.038+d.ph);const lit=br+d.pulse*.68;const alpha=Math.max(.03,Math.min(.95,df*lit));const radius=Math.max(.4,p.s*(1.25+d.pulse*1.2)*Math.max(.15,df));return{sx:p.sx,sy:p.sy,depth:p.depth,alpha,radius,pulse:d.pulse};}).sort((a,b)=>a.depth-b.depth);rendered.forEach(({sx,sy,alpha,radius,pulse})=>{if(pulse>.1){const g=ctx.createRadialGradient(sx,sy,0,sx,sy,radius*4);g.addColorStop(0,rgba(CC,pulse*.22));g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(sx,sy,radius*4,0,Math.PI*2);ctx.fill();}ctx.beginPath();ctx.arc(sx,sy,radius,0,Math.PI*2);ctx.fillStyle=rgba(CC,alpha);ctx.fill();});const core=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.42);core.addColorStop(0,rgba(CC,.07));core.addColorStop(.7,rgba(CC,.02));core.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=core;ctx.beginPath();ctx.arc(cx,cy,R*.42,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(cx,cy,R+1,0,Math.PI*2);ctx.strokeStyle=rgba(CC,.07+.025*Math.sin(t*.05));ctx.lineWidth=.6;ctx.stroke();rotY+=.006;rotX=.26+.06*Math.sin(t*.004);t++;requestAnimationFrame(draw);}
     draw();
-    // Live clock
     function updateClock(){const el=document.getElementById('clock-display');if(el)el.textContent=new Date().toISOString().slice(11,19)+' UTC';}
     updateClock();setInterval(updateClock,1000);
     })();
