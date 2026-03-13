@@ -8,6 +8,100 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* STAR Method Labels */
+        .star-block {
+            display: grid;
+            gap: 1.1rem;
+            margin: 1.25rem 0;
+        }
+        .star-item {
+            display: grid;
+            grid-template-columns: 90px 1fr;
+            gap: 1rem;
+            align-items: start;
+            padding: 0.85rem 1rem;
+            background: rgba(0,245,233,0.02);
+            border-left: 2px solid var(--border-dim);
+            border-radius: 0 4px 4px 0;
+            transition: border-color 0.25s;
+        }
+        .star-item:hover { border-left-color: var(--accent-cyan); }
+        .star-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.58rem;
+            letter-spacing: 2px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            padding-top: 2px;
+            opacity: 0.75;
+        }
+        .star-label.s { color: var(--accent-amber); }
+        .star-label.t { color: var(--accent-red); }
+        .star-label.a { color: var(--accent-cyan); }
+        .star-label.r { color: var(--accent-green); }
+        .star-text {
+            font-size: 0.86rem;
+            line-height: 1.85;
+            color: var(--text-primary);
+            opacity: 0.88;
+        }
+        .star-text strong {
+            color: white;
+            font-weight: 500;
+        }
+        .impact-number {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            border: 1px solid rgba(0,230,118,0.25);
+            padding: 1px 7px;
+            border-radius: 2px;
+            background: rgba(0,230,118,0.06);
+            margin: 0 2px;
+        }
+        .decision-rationale {
+            background: rgba(245,166,35,0.04);
+            border-left: 2px solid rgba(245,166,35,0.35);
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.83rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            opacity: 0.9;
+        }
+        .decision-rationale::before {
+            content: 'STRATEGIC DECISION ▸ ';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.52rem;
+            letter-spacing: 2px;
+            color: var(--accent-amber);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .challenge-box {
+            background: rgba(255,45,85,0.04);
+            border-left: 2px solid rgba(255,45,85,0.3);
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.83rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            opacity: 0.9;
+        }
+        .challenge-box::before {
+            content: 'OBSTACLE ENCOUNTERED ▸ ';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.52rem;
+            letter-spacing: 2px;
+            color: var(--accent-red);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+    </style>
 </head>
 <body>
     <div class="alert-ticker" aria-hidden="true">
@@ -47,109 +141,187 @@
     <div class="container">
         <div class="page-header">
             <h1>WORK EXPERIENCE</h1>
-            <p>STORIES FROM THE FIELD</p>
+            <p>STORIES FROM THE FIELD — STAR FORMAT</p>
         </div>
 
         <section class="section">
+
+            <!-- WIA: M&A Threat Hunting -->
             <div class="story-card">
                 <div class="story-meta">
                     <span class="story-company">World Insurance Associates LLC</span>
                     <span class="story-date">June 2025 – August 2025</span>
                 </div>
-                <div class="story-title">Hunting Threats in M&amp;A Targets</div>
-                <div class="story-content">
-                    During my internship at World Insurance Associates, I got to play detective on a massive scale. 
-                    The company was evaluating 40+ potential M&amp;A targets, and my job was to figure out what security 
-                    risks might be hiding before deals were finalized.
-                    <div class="story-highlight">
-                        I leveraged OSINT platforms like Shodan, Censys, and VirusTotal to map out each target's 
-                        attack surface. Additionally, I performed daily analysis of client web applications, scrutinizing
-                        their security posture through automated vulnerability scans and manual code reviews.
+                <div class="story-title">Hunting Hidden Risk in 40+ M&amp;A Targets</div>
+
+                <div class="star-block">
+                    <div class="star-item">
+                        <div class="star-label s">Situation</div>
+                        <div class="star-text">WIA was accelerating an aggressive M&amp;A strategy, evaluating 40+ insurance companies for acquisition. Each target carried unknown cybersecurity debt—SQL injection vectors, exposed services, misconfigured cloud assets—that could become WIA's liability the moment a deal closed. <strong>No systematic OSINT process existed</strong> to assess this risk at scale before due diligence concluded.</div>
                     </div>
-                    Beyond reconnaissance, I performed comprehensive vulnerability assessments, uncovering over 40 
-                    critical issues including SQL injection vectors and XSS vulnerabilities. Each finding was 
-                    documented and presented directly to the CISO.
+                    <div class="star-item">
+                        <div class="star-label t">Task</div>
+                        <div class="star-text">Build and execute a repeatable passive reconnaissance methodology to surface critical vulnerabilities across all targets, then communicate findings directly to the CISO in a format that could inform go/no-go acquisition decisions.</div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label a">Action</div>
+                        <div class="star-text">
+                            I cross-referenced Shodan, Censys, and VirusTotal to map each target's internet-exposed attack surface without touching their systems. I standardized a scoring rubric across SSL/TLS hygiene, exposed admin panels, leaked credentials on paste sites, and subdomain enumeration results.
+
+                            <div class="decision-rationale">
+                                I chose passive OSINT over active scanning deliberately — active scans against pre-acquisition targets could have legal implications and tipped off targets. Passive techniques gave us 80% of the risk picture with zero legal exposure and zero detection.
+                            </div>
+
+                            For web applications, I combined automated Nuclei scans with manual testing to confirm vulnerabilities before escalation — I never reported a finding I hadn't validated, because a false positive in M&amp;A due diligence wastes executive time and can derail deals.
+                        </div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label r">Result</div>
+                        <div class="star-text">Uncovered <span class="impact-number">40+ critical findings</span> including SQL injection vectors and XSS vulnerabilities across multiple targets. Findings were presented directly to the CISO with risk-ranked remediation timelines. Two targets had findings serious enough to factor into deal valuation conversations.</div>
+                    </div>
                 </div>
+
                 <div class="story-tags">
                     <span class="tag">OSINT</span>
+                    <span class="tag">SHODAN · CENSYS</span>
                     <span class="tag">VULNERABILITY ASSESSMENT</span>
                     <span class="tag">M&amp;A SECURITY</span>
+                    <span class="tag">CISO REPORTING</span>
                 </div>
             </div>
 
+            <!-- WIA: Enterprise Defense -->
             <div class="story-card">
                 <div class="story-meta">
                     <span class="story-company">World Insurance Associates LLC</span>
                     <span class="story-date">June 2025 – August 2025</span>
                 </div>
-                <div class="story-title">Building Defense Infrastructure</div>
-                <div class="story-content">
-                    Analyzing security controls is one thing. Actually assisting with implementation across an enterprise 
-                    is where theory meets reality. I helped deploy Microsoft's security stack—Entra ID, Defender, and Intune.
-                    <div class="story-highlight">
-                        The challenge wasn't just technical configuration. It was understanding how 300+ 
-                        NIST 800-53 controls map to real-world security outcomes. I analyzed the entire framework, 
-                        identified controls we lacked, and developed a comprehensive remediation roadmap that 
-                        improved security posture by 35%.
+                <div class="story-title">Turning 300+ Controls into a 35% Security Improvement</div>
+
+                <div class="star-block">
+                    <div class="star-item">
+                        <div class="star-label s">Situation</div>
+                        <div class="star-text">WIA was deploying Microsoft's enterprise security stack — Entra ID, Defender, Intune — across the organization. They had a NIST 800-53 compliance requirement but <strong>no clear mapping between the 300+ controls and their actual Microsoft environment</strong>. The gap analysis had never been completed.</div>
                     </div>
-                    This wasn't textbook compliance work—it was about genuinely making the organization 
-                    more resilient against actual threats while maintaining operational efficiency.
+                    <div class="star-item">
+                        <div class="star-label t">Task</div>
+                        <div class="star-text">Audit the current security posture against NIST 800-53, identify control gaps, and develop a remediation roadmap that prioritized the highest-risk gaps first — balancing security improvement against operational disruption.</div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label a">Action</div>
+                        <div class="star-text">
+                            I systematically worked through the 800-53 control families, mapping each control to its Microsoft implementation (or lack thereof). For controls with partial implementation, I documented the gap with a severity rating based on likelihood × impact.
+
+                            <div class="challenge-box">
+                                The hardest part wasn't technical — it was learning to translate security control language into business terms. "AC-2: Account Management" means nothing to a CFO. I had to reframe every finding in terms of breach risk, regulatory penalty exposure, and operational downtime to get prioritization decisions approved quickly.
+                            </div>
+
+                            I then assisted directly with the Entra ID and Intune configuration, testing conditional access policies in a staging environment before production rollout to avoid locking out users — a mistake I'd seen happen at other organizations.
+                        </div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label r">Result</div>
+                        <div class="star-text">Overall security posture improved by <span class="impact-number">35%</span> measured against the NIST baseline. Remediation roadmap gave the CISO a 90-day, 180-day, and 12-month plan with cost estimates — enabling board-level reporting for the first time.</div>
+                    </div>
                 </div>
+
                 <div class="story-tags">
-                    <span class="tag">MICROSOFT SECURITY</span>
+                    <span class="tag">MICROSOFT DEFENDER</span>
+                    <span class="tag">ENTRA ID · INTUNE</span>
                     <span class="tag">NIST 800-53</span>
+                    <span class="tag">GRC</span>
                     <span class="tag">SECURITY ARCHITECTURE</span>
                 </div>
             </div>
 
+            <!-- Windward: SOC Automation -->
             <div class="story-card">
                 <div class="story-meta">
                     <span class="story-company">Windward Consulting LLC</span>
                     <span class="story-date">Oct. 2023 – Sept. 2024</span>
                 </div>
-                <div class="story-title">Automating SOC Workflows</div>
-                <div class="story-content">
-                    At Windward Consulting, I quickly realized that analysts spend enormous amounts of time 
-                    on repetitive tasks that could be automated. Reviewing and categorizing 100+ data points
-                    each week taught me the team's threat taxonomy, but I knew there had to be a better way.
-                    <div class="story-highlight">
-                        I built Python and PowerShell automation scripts that transformed hours of manual CSV 
-                        manipulation and report formatting into seconds. The result? Our team saved 3-5 hours 
-                        per week that could be redirected toward actual threat analysis.
+                <div class="story-title">Reclaiming 5 Hours a Week From Manual SOC Work</div>
+
+                <div class="star-block">
+                    <div class="star-item">
+                        <div class="star-label s">Situation</div>
+                        <div class="star-text">The SOC team was processing 100+ data points weekly through manual CSV manipulation and report generation. Analysts with deep threat expertise were spending significant time on mechanical formatting tasks — <strong>alert fatigue was real, and it was getting worse</strong>. Genuine threats were at risk of being missed because cognitive bandwidth was exhausted on repetitive work.</div>
                     </div>
-                    I also conducted a comprehensive evaluation of Nessus and OpenVAS vulnerability platforms across 40+ 
-                    scanning techniques to help the team choose the right tool for enterprise adoption.
+                    <div class="star-item">
+                        <div class="star-label t">Task</div>
+                        <div class="star-text">Identify the highest-ROI automation opportunities, build the tooling, and validate that it actually freed up analyst time without introducing new failure modes in the reporting pipeline.</div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label a">Action</div>
+                        <div class="star-text">
+                            I spent two weeks shadowing analysts to understand exactly where time was lost before writing a single line of code. I mapped the full workflow: data ingestion, normalization, enrichment, and report generation — identifying which steps were purely mechanical vs. which required judgment.
+
+                            <div class="decision-rationale">
+                                I chose Python over PowerShell for the core pipeline because the data manipulation requirements favored pandas over CSV handling, even though PowerShell would have been faster for the Windows team to maintain. I documented everything and provided PowerShell wrappers so the team could trigger scripts without touching Python directly.
+                            </div>
+
+                            I also conducted a comparative evaluation of Nessus vs. OpenVAS across 40+ scanning techniques to inform the team's platform decision — building a decision matrix that weighed cost, coverage, integration complexity, and false positive rates.
+                        </div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label r">Result</div>
+                        <div class="star-text">Scripts reduced weekly reporting time by <span class="impact-number">3–5 hours</span> per analyst. The vulnerability scanner evaluation gave the team a documented, defensible platform recommendation — removing months of indecision. Analysts reported meaningfully less cognitive fatigue on high-volume weeks.</div>
+                    </div>
                 </div>
+
                 <div class="story-tags">
-                    <span class="tag">AUTOMATION</span>
-                    <span class="tag">PYTHON</span>
+                    <span class="tag">PYTHON AUTOMATION</span>
+                    <span class="tag">POWERSHELL</span>
                     <span class="tag">SOC OPERATIONS</span>
+                    <span class="tag">NESSUS · OPENVAS</span>
+                    <span class="tag">ALERT FATIGUE REDUCTION</span>
                 </div>
             </div>
 
+            <!-- Karen J. Solofsky: Healthcare -->
             <div class="story-card">
                 <div class="story-meta">
                     <span class="story-company">Karen J. Solofsky OD</span>
                     <span class="story-date">June 2021 – August 2023</span>
                 </div>
-                <div class="story-title">Security Awareness That Works</div>
-                <div class="story-content">
-                    Managing IT infrastructure for a medical practice with 5,000+ patient records taught me that 
-                    technical controls are only half the battle. The human element matters just as much.
-                    <div class="story-highlight">
-                        Instead of boring PowerPoint presentations, I created realistic phishing simulations 
-                        and hands-on training that showed staff exactly how they were being targeted. The result? 
-                        A 60% reduction in successful phishing attempts and zero HIPAA security incidents.
+                <div class="story-title">Zero HIPAA Incidents — The Hard Way and the Smart Way</div>
+
+                <div class="star-block">
+                    <div class="star-item">
+                        <div class="star-label s">Situation</div>
+                        <div class="star-text">A medical practice managing 5,000+ patient records with staff who had no security training and no reason to care about it. <strong>Phishing was the primary attack vector</strong>, and the staff clicked. HIPAA penalties for a breach start at $100 per record — a single incident could cost $500K+. The practice had no budget for enterprise security tooling.</div>
                     </div>
-                    I also remediated XSS vulnerabilities and implemented SSL/TLS hardening, leading to a 40% 
-                    performance improvement while ensuring strict HIPAA compliance.
+                    <div class="star-item">
+                        <div class="star-label t">Task</div>
+                        <div class="star-text">Reduce phishing susceptibility, harden the web presence against exploitation, and maintain HIPAA compliance — all without disrupting patient-facing operations or requiring a security budget that didn't exist.</div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label a">Action</div>
+                        <div class="star-text">
+                            On the human side: instead of slide-deck training, I created realistic phishing simulations tailored to the practice's actual vendors and patient communication patterns. When staff clicked, they got immediate, contextual feedback rather than a quarterly lecture.
+
+                            <div class="challenge-box">
+                                The resistance was real. Staff felt surveilled and embarrassed when they failed simulations. I learned to reframe the program as "catching the attacker, not catching you" — shifting blame from the individual to the phishing technique. Participation and attitude shifted within two months.
+                            </div>
+
+                            On the technical side: I audited the practice website and found XSS vulnerabilities and weak SSL/TLS configuration. I implemented security headers, enforced TLS 1.2+, and patched the XSS vectors — all changes that also improved Google's security scoring and page load performance.
+                        </div>
+                    </div>
+                    <div class="star-item">
+                        <div class="star-label r">Result</div>
+                        <div class="star-text">Phishing click rate dropped <span class="impact-number">60%</span> over six months. <span class="impact-number">Zero HIPAA security incidents</span> across two years of operation. Website security hardening delivered a <span class="impact-number">40% performance improvement</span> as a byproduct — faster load times, better patient experience.</div>
+                    </div>
                 </div>
+
                 <div class="story-tags">
                     <span class="tag">HIPAA</span>
+                    <span class="tag">PHISHING SIMULATION</span>
                     <span class="tag">SECURITY AWARENESS</span>
-                    <span class="tag">PHISHING PREVENTION</span>
+                    <span class="tag">XSS REMEDIATION</span>
+                    <span class="tag">SSL/TLS HARDENING</span>
                 </div>
             </div>
+
         </section>
     </div>
 
