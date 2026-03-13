@@ -11,9 +11,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-overlay">
-        <div class="loading-text">INITIALIZING...</div>
+
+    <!-- ═══════════════════════ LOADING SCREEN ═══════════════════════ -->
+    <div class="loading-overlay" id="loader">
+        <div class="l-grid"></div>
+        <div class="l-scanline"></div>
+        <div class="l-stage">
+            <canvas id="loader-canvas" width="340" height="340"></canvas>
+            <div class="l-hud">
+                <div class="l-task" id="l-task"></div>
+                <div class="l-bar-row">
+                    <div class="l-bar"><div class="l-bar-fill" id="l-fill"></div></div>
+                    <div class="l-pct" id="l-pct">0%</div>
+                </div>
+                <div class="l-status">
+                    <span><span class="l-dot"></span>ONLINE</span>
+                    <span id="l-ts"></span>
+                    <span>THREAT: LOW</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Scanline Effect -->
@@ -215,6 +232,125 @@
             </div>
         </div>
     </footer>
+
+    <!-- ═══════════════════════ LOADER SCRIPT ═══════════════════════ -->
+    <script>
+    (() => {
+    'use strict';
+
+    const TASKS = [
+        "Loading stylesheet assets",
+        "Preloading web fonts",
+        "Parsing navigation structure",
+        "Rendering experience timeline",
+        "Indexing project metadata",
+        "Resolving GitHub repository links",
+        "Mounting skills matrix",
+        "Preparing certification records",
+        "Building CTF achievement index",
+        "Loading contact endpoints",
+        "Optimizing asset delivery",
+        "Validating external link integrity",
+        "Composing page transitions",
+        "Hydrating content sections",
+        "Finalizing layout geometry",
+        "Applying security headers",
+        "Verifying resource integrity",
+        "Configuring scroll observers",
+        "Compiling animation sequences",
+        "Portfolio ready",
+    ];
+
+    const taskEl = document.getElementById('l-task');
+    const fillEl = document.getElementById('l-fill');
+    const pctEl  = document.getElementById('l-pct');
+    const tsEl   = document.getElementById('l-ts');
+
+    let pool = [...TASKS].sort(() => Math.random() - .5), qi = 0;
+    function nextTask() {
+        taskEl.classList.remove('on');
+        setTimeout(() => {
+            taskEl.textContent = pool[qi % pool.length];
+            taskEl.classList.add('on');
+            if (++qi >= pool.length) { pool = [...TASKS].sort(() => Math.random() - .5); qi = 0; }
+        }, 250);
+    }
+    nextTask();
+    const taskInterval = setInterval(nextTask, 2400);
+
+    function stamp() { tsEl.textContent = new Date().toISOString().slice(0,19).replace('T',' ') + ' UTC'; }
+    stamp(); setInterval(stamp, 1000);
+
+    /* Progress drives to 100 over ~4.2s with ease-in-out, then fades loader */
+    let prog = 0, done = false;
+    const START = performance.now(), DURATION = 4200;
+
+    function tick() {
+        const elapsed = performance.now() - START;
+        const t = Math.min(1, elapsed / DURATION);
+        const eased = t < .5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+        prog = Math.min(100, eased * 100 + (Math.random() * 1.2 - .6));
+        fillEl.style.width = prog + '%';
+        pctEl.textContent  = Math.floor(prog) + '%';
+        if (prog >= 100 && !done) {
+            done = true;
+            clearInterval(taskInterval);
+            taskEl.textContent = 'Portfolio ready';
+            taskEl.classList.add('on');
+            setTimeout(() => { document.getElementById('loader').classList.add('loader-done'); }, 500);
+            return;
+        }
+        requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    /* ─── Fibonacci sphere canvas ─── */
+    const cv  = document.getElementById('loader-canvas');
+    const ctx = cv.getContext('2d');
+    const W = cv.width, H = cv.height, cx = W/2, cy = H/2, R = 108;
+    const CC = [102,252,241];
+    const rgba = (c,a) => `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`;
+
+    function makeSphere(n) {
+        const pts = [], g = Math.PI*(3-Math.sqrt(5));
+        for (let i=0;i<n;i++) {
+            const y=1-(i/(n-1))*2, r=Math.sqrt(Math.max(0,1-y*y)), a=g*i;
+            pts.push({x:Math.cos(a)*r,y,z:Math.sin(a)*r,ph:Math.random()*Math.PI*2,sp:.5+Math.random()*.5,pulse:0});
+        }
+        return pts;
+    }
+    const DOTS = makeSphere(220);
+    let waves = [];
+    function addWave() {
+        if (waves.length>=2) return;
+        const lat=Math.acos(2*Math.random()-1),lon=Math.random()*Math.PI*2;
+        waves.push({ox:Math.sin(lat)*Math.cos(lon),oy:Math.cos(lat),oz:Math.sin(lat)*Math.sin(lon),radius:0,age:0,life:260+Math.random()*80});
+    }
+    addWave(); setInterval(addWave,3200);
+    const ry=(x,z,a)=>[x*Math.cos(a)+z*Math.sin(a),-x*Math.sin(a)+z*Math.cos(a)];
+    const rx=(y,z,a)=>[y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];
+    const dot3=(ax,ay,az,bx,by,bz)=>ax*bx+ay*by+az*bz;
+    let rotY=0,rotX=.26,t=0;
+    function xf(px,py,pz){const[x,z]=ry(px,pz,rotY);const[y,z2]=rx(py,z,rotX);const s=520/(z2+520);return{sx:cx+x*s,sy:cy+y*s,depth:z2,s};}
+
+    function draw() {
+        ctx.clearRect(0,0,W,H);
+        const halo=ctx.createRadialGradient(cx,cy,R*.05,cx,cy,R*1.45);
+        halo.addColorStop(0,rgba(CC,.04));halo.addColorStop(.65,rgba(CC,.012));halo.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle=halo;ctx.beginPath();ctx.arc(cx,cy,R*1.45,0,Math.PI*2);ctx.fill();
+        waves=waves.filter(w=>w.age<w.life);
+        waves.forEach(w=>{w.age++;const p=w.age/w.life;const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;w.radius=e*Math.PI;});
+        DOTS.forEach(d=>{let b=0;waves.forEach(w=>{const c=Math.min(1,Math.max(-1,dot3(d.x,d.y,d.z,w.ox,w.oy,w.oz)));const ad=Math.acos(c),band=0.38,diff=Math.abs(ad-w.radius);if(diff<band){const wf=Math.sin((w.age/w.life)*Math.PI);const pr=(Math.cos((diff/band)*Math.PI)+1)/2;b+=wf*pr*.85;}});d.pulse+=(Math.min(1,b)-d.pulse)*.08;});
+        const rendered=DOTS.map(d=>{const p=xf(d.x*R,d.y*R,d.z*R);const df=(p.depth+R)/(2*R);const br=.22+.14*Math.sin(t*d.sp*.038+d.ph);const lit=br+d.pulse*.68;const alpha=Math.max(.03,Math.min(.95,df*lit));const radius=Math.max(.4,p.s*(1.25+d.pulse*1.2)*Math.max(.15,df));return{sx:p.sx,sy:p.sy,depth:p.depth,alpha,radius,pulse:d.pulse};}).sort((a,b)=>a.depth-b.depth);
+        rendered.forEach(({sx,sy,alpha,radius,pulse})=>{if(pulse>.1){const g=ctx.createRadialGradient(sx,sy,0,sx,sy,radius*4);g.addColorStop(0,rgba(CC,pulse*.22));g.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(sx,sy,radius*4,0,Math.PI*2);ctx.fill();}ctx.beginPath();ctx.arc(sx,sy,radius,0,Math.PI*2);ctx.fillStyle=rgba(CC,alpha);ctx.fill();});
+        const core=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.42);core.addColorStop(0,rgba(CC,.07));core.addColorStop(.7,rgba(CC,.02));core.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=core;ctx.beginPath();ctx.arc(cx,cy,R*.42,0,Math.PI*2);ctx.fill();
+        ctx.beginPath();ctx.arc(cx,cy,R+1,0,Math.PI*2);ctx.strokeStyle=rgba(CC,.07+.025*Math.sin(t*.05));ctx.lineWidth=.6;ctx.stroke();
+        rotY+=.006;rotX=.26+.06*Math.sin(t*.004);t++;
+        requestAnimationFrame(draw);
+    }
+    draw();
+    })();
+    </script>
 
     <script src="script-secure.js"></script>
 </body>
