@@ -8,131 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* SWOT Grid */
-        .swot-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
-            background: var(--border-dim);
-            border: 1px solid var(--border-dim);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 2.5rem;
-        }
-        .swot-cell {
-            background: var(--bg-card);
-            padding: 1.5rem;
-            transition: background 0.25s;
-        }
-        .swot-cell:hover { background: var(--bg-card-hover); }
-        .swot-cell-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.6rem;
-            border-bottom: 1px solid var(--border-dim);
-        }
-        .swot-letter {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            line-height: 1;
-        }
-        .swot-cell.strengths .swot-letter    { color: var(--accent-cyan); }
-        .swot-cell.weaknesses .swot-letter   { color: var(--accent-red); }
-        .swot-cell.opportunities .swot-letter{ color: var(--accent-green); }
-        .swot-cell.threats .swot-letter      { color: var(--accent-amber); }
-        .swot-cell-title {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: var(--text-dim);
-            text-transform: uppercase;
-        }
-        .swot-items {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.55rem;
-        }
-        .swot-items li {
-            font-size: 0.82rem;
-            line-height: 1.6;
-            color: var(--text-primary);
-            opacity: 0.85;
-            display: flex;
-            gap: 0.5rem;
-            align-items: flex-start;
-        }
-        .swot-items li::before {
-            content: '▸';
-            font-size: 0.6rem;
-            margin-top: 3px;
-            flex-shrink: 0;
-        }
-        .swot-cell.strengths    .swot-items li::before { color: var(--accent-cyan); }
-        .swot-cell.weaknesses   .swot-items li::before { color: var(--accent-red); }
-        .swot-cell.opportunities .swot-items li::before { color: var(--accent-green); }
-        .swot-cell.threats      .swot-items li::before { color: var(--accent-amber); }
-
-        /* CTF context cards */
-        .ctf-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-dim);
-            border-radius: 5px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .ctf-card:hover {
-            border-color: var(--border-cyan);
-            background: var(--bg-card-hover);
-            transform: translateY(-3px);
-        }
-        .ctf-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.88rem;
-            color: var(--accent-cyan);
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-        }
-        .ctf-context {
-            font-size: 0.78rem;
-            color: var(--text-dim);
-            margin-bottom: 0.6rem;
-            line-height: 1.5;
-        }
-        .ctf-story {
-            font-size: 0.82rem;
-            line-height: 1.75;
-            color: var(--text-primary);
-            opacity: 0.85;
-            margin-bottom: 0.75rem;
-        }
-        .ctf-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.35rem;
-        }
-        .ctf-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.25rem;
-        }
-        .impact-number {
-            display: inline-block;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            color: var(--accent-green);
-            border: 1px solid rgba(0,230,118,0.25);
-            padding: 1px 7px;
-            border-radius: 2px;
-            background: rgba(0,230,118,0.06);
-            margin: 0 2px;
-        }
-    </style>
 </head>
 <body>
     <div class="alert-ticker" aria-hidden="true">
@@ -172,68 +47,47 @@
     <div class="container">
         <div class="page-header">
             <h1>ABOUT</h1>
-            <p>BACKGROUND, SELF-ASSESSMENT &amp; ACHIEVEMENTS</p>
+            <p>BACKGROUND, CREDENTIALS &amp; PROFILE</p>
         </div>
 
-        <!-- SWOT Self-Assessment -->
+        <!-- Profile -->
         <section class="section">
             <div class="section-header">
                 <span class="bracket">[</span>
-                <h2>Professional SWOT</h2>
+                <h2>Profile</h2>
                 <span class="bracket">]</span>
             </div>
-            <p style="font-size:0.83rem;color:var(--text-dim);margin-bottom:1.5rem;line-height:1.7;">
-                Hiring managers want candidates who think critically — including about themselves. Here's an honest SWOT of where I am and where I'm heading.
-            </p>
 
-            <div class="swot-grid">
-                <div class="swot-cell strengths">
-                    <div class="swot-cell-header">
-                        <div class="swot-letter">S</div>
-                        <div class="swot-cell-title">Strengths</div>
-                    </div>
-                    <ul class="swot-items">
-                        <li>OSINT methodology and passive reconnaissance — proven in M&amp;A due diligence at scale (40+ targets)</li>
-                        <li>Builds security tools that bridge the gap between capability and accessibility — see CoreRecon, Bakery Encoder</li>
-                        <li>Translates technical findings into executive language — delivered CISO-level reports and boardroom-ready remediation roadmaps</li>
-                        <li>Competitive CTF performer in OSINT categories specifically — Trace Labs placements demonstrate real-world intelligence discipline</li>
-                        <li>Full-stack development capability (FastAPI + React) means I can prototype and ship security tooling without waiting on dev resources</li>
+            <div class="story-card" style="margin-bottom:1.5rem;">
+                <div class="story-content" style="margin-bottom:0;">
+                    I bridge technical depth and business context. The last two years have been spent surfacing security risks in M&amp;A pipelines, deploying enterprise defense stacks, and building the tooling that made the work scalable. I graduate May 2026 with a B.S. in Cybersecurity and a Business Analytics minor from the University of Tampa, GPA 3.60. The business school context is deliberate: security decisions are risk management decisions, and I can make that case in a boardroom.
+                </div>
+            </div>
+
+            <div class="profile-grid">
+                <div class="profile-card strength">
+                    <div class="profile-label">Where I Excel</div>
+                    <ul>
+                        <li>OSINT at scale across 40+ M&amp;A targets using passive-only methodology</li>
+                        <li>Full-stack security tooling (FastAPI + React) built and shipped without a dev team</li>
+                        <li>Executive-level reporting that translates technical findings into risk language</li>
+                        <li>Competitive CTF OSINT performance across three consecutive events</li>
                     </ul>
                 </div>
-                <div class="swot-cell weaknesses">
-                    <div class="swot-cell-header">
-                        <div class="swot-letter">W</div>
-                        <div class="swot-cell-title">Weaknesses / Growth Areas</div>
-                    </div>
-                    <ul class="swot-items">
-                        <li>Limited red team / adversarial simulation depth — experience is more blue team and GRC; actively addressing with CySA+ and CTF practice</li>
-                        <li>Cloud security expertise concentrated in Azure / Microsoft stack — AWS and GCP exposure is lighter; worth noting for multi-cloud environments</li>
-                        <li>No production ML experience — statistical models in C2 Beacon Detector are rule-based with heuristics, not trained classifiers</li>
-                        <li>Less than 2 years of full-time professional experience — internships and part-time roles are solid, but haven't yet owned a full security program end-to-end</li>
+                <div class="profile-card growth">
+                    <div class="profile-label">Growth Areas</div>
+                    <ul>
+                        <li>Red team depth is growing through CySA+ and active CTF practice</li>
+                        <li>Cloud security concentrated in Azure and Microsoft stack; expanding to AWS and GCP</li>
+                        <li>Under two years of full-time experience; building toward owning a full security program</li>
                     </ul>
                 </div>
-                <div class="swot-cell opportunities">
-                    <div class="swot-cell-header">
-                        <div class="swot-letter">O</div>
-                        <div class="swot-cell-title">Opportunities</div>
-                    </div>
-                    <ul class="swot-items">
-                        <li>Graduating into a market with acute SOC analyst and GRC practitioner shortages — business analytics minor means I can contribute across the risk management function, not just technical security</li>
-                        <li>M&amp;A security is a growing specialization as PE-driven consolidation accelerates in insurance, healthcare, and financial services</li>
-                        <li>OSINT + full-stack development is an unusual combination — most intelligence practitioners can't build their own tooling</li>
-                        <li>CySA+ and CCNA in progress — each cert closes a specific credentialing gap with enterprise hiring requirements</li>
-                    </ul>
-                </div>
-                <div class="swot-cell threats">
-                    <div class="swot-cell-header">
-                        <div class="swot-letter">T</div>
-                        <div class="swot-cell-title">Threats / Challenges</div>
-                    </div>
-                    <ul class="swot-items">
-                        <li>Entry-level cybersecurity roles are increasingly filtered for certifications I'm still acquiring (CISSP, CISM not yet viable by experience)</li>
-                        <li>Competing with bootcamp graduates and career changers who may have more hours of deliberate practice in specific tooling</li>
-                        <li>Security landscape evolves faster than any certification cycle — staying current requires ongoing self-directed learning investment</li>
-                        <li>AI-assisted security tooling is commoditizing some of the scripting/automation work that differentiates early-career candidates</li>
+                <div class="profile-card opportunity">
+                    <div class="profile-label">What I Bring</div>
+                    <ul>
+                        <li>OSINT plus full-stack development is an uncommon combination: I build my own tooling</li>
+                        <li>Business analytics training means risk conversations, not just technical reports</li>
+                        <li>M&amp;A security is a growing specialty as consolidation accelerates in insurance and financial services</li>
                     </ul>
                 </div>
             </div>
@@ -251,13 +105,11 @@
                     <span class="story-company">The University of Tampa</span>
                     <span class="story-date">Expected Graduation: May 2026</span>
                 </div>
-                <div class="story-title">B.S. in Business – Cybersecurity Major</div>
+                <div class="story-title">B.S. in Business, Cybersecurity Major</div>
                 <div class="story-content">
-                    Minor: Business Analytics | GPA: 3.60/4.00 | Dean's List | Presidential Scholarship
+                    Minor: Business Analytics &nbsp;|&nbsp; GPA: 3.60/4.00 &nbsp;|&nbsp; Dean's List &nbsp;|&nbsp; Presidential Scholarship
                     <br><br>
-                    The business school context matters: I understand security as a risk management discipline, not just a technical one. Business Analytics training means I can model risk quantitatively — translating "we have 12 unpatched critical CVEs" into "estimated breach probability × average breach cost = X" for budget conversations.
-                    <br><br>
-                    The real education has come from the work itself — from late nights in SIEM labs, from CTF competitions where you learn by failing fast, and from internships where theoretical knowledge meets actual enterprise constraints and political realities.
+                    The business school context matters. I understand security as a risk management discipline, not just a technical one. Business Analytics training means I can translate "we have 12 unpatched critical CVEs" into an expected breach cost for a budget conversation. The real education has come from the work itself: SIEM labs, CTF failures, and internships where theoretical knowledge meets actual enterprise constraints.
                 </div>
             </div>
         </section>
@@ -272,101 +124,89 @@
             <div class="achievements-grid">
                 <div class="achievement-card">
                     <div class="achievement-title">CompTIA Security+</div>
-                    <div class="achievement-detail">May 2024 · Baseline security practitioner standard</div>
+                    <div class="achievement-detail">May 2024 &nbsp;·&nbsp; Baseline security practitioner standard</div>
                     <div class="achievement-badge">CERTIFIED</div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">CompTIA Network+</div>
-                    <div class="achievement-detail">August 2023 · Networking fundamentals for security context</div>
+                    <div class="achievement-detail">August 2023 &nbsp;·&nbsp; Networking fundamentals for security context</div>
                     <div class="achievement-badge">CERTIFIED</div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">ServiceNow ATF</div>
-                    <div class="achievement-detail">July 2024 · Automated Testing Framework</div>
+                    <div class="achievement-detail">July 2024 &nbsp;·&nbsp; Automated Testing Framework</div>
                     <div class="achievement-badge">CERTIFIED</div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">ServiceNow Flow Designer</div>
-                    <div class="achievement-detail">July 2024 · Workflow automation for GRC/ITSM</div>
+                    <div class="achievement-detail">July 2024 &nbsp;·&nbsp; Workflow automation for GRC/ITSM</div>
                     <div class="achievement-badge">CERTIFIED</div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">ServiceNow Integration Hub</div>
-                    <div class="achievement-detail">July 2024 · Enterprise API integration patterns</div>
+                    <div class="achievement-detail">July 2024 &nbsp;·&nbsp; Enterprise API integration patterns</div>
                     <div class="achievement-badge">CERTIFIED</div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">CompTIA CySA+</div>
-                    <div class="achievement-detail">55% Complete · Analyst-level threat detection &amp; response</div>
+                    <div class="achievement-detail">55% Complete &nbsp;·&nbsp; Analyst-level threat detection and response</div>
                     <div class="achievement-badge in-progress">IN PROGRESS</div>
                 </div>
                 <div class="achievement-card">
                     <div class="achievement-title">Cisco CCNA</div>
-                    <div class="achievement-detail">62% Complete · Closes gap in network infrastructure depth</div>
+                    <div class="achievement-detail">62% Complete &nbsp;·&nbsp; Network infrastructure depth</div>
                     <div class="achievement-badge in-progress">IN PROGRESS</div>
                 </div>
             </div>
         </section>
 
-        <!-- CTF Achievements with context -->
+        <!-- CTF Achievements -->
         <section class="section">
             <div class="section-header">
                 <span class="bracket">[</span>
                 <h2>CTF Achievements</h2>
                 <span class="bracket">]</span>
             </div>
-            <p style="font-size:0.83rem;color:var(--text-dim);margin-bottom:1.5rem;line-height:1.7;">
-                CTF placements are only meaningful with context. Here's what each competition actually tests and why the rankings matter.
+            <p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:1.5rem;line-height:1.7;">
+                Rankings only mean something with context. Here is what each competition actually tests.
             </p>
 
-            <div class="ctf-grid">
-                <div class="ctf-card">
-                    <div class="ctf-title">Trace Labs Search Party OSINT CTF</div>
-                    <div class="ctf-context">International missing persons open-source intelligence search. Real cases, real families. Not gamified — actual impact if you find something actionable.</div>
-                    <div class="ctf-story">
-                        This competition is different from typical CTFs: you're searching for real missing people using only publicly available sources. Finding a relevant lead means that information goes to law enforcement. The scoring structure rewards genuine intelligence discipline — not speed, but depth and precision. Three placements across events (10th, 16th, 25th) reflects consistent methodology that translates across different cases and subject profiles.
-                    </div>
-                    <div class="ctf-badges">
-                        <div class="achievement-badge">10th PLACE</div>
-                        <div class="achievement-badge">16th PLACE</div>
-                        <div class="achievement-badge">25th PLACE</div>
+            <div class="ctf-compact-grid">
+                <div class="ctf-compact-card">
+                    <div class="ctf-compact-name">Trace Labs Search Party OSINT CTF</div>
+                    <div class="ctf-compact-context">Real missing persons cases. Intelligence findings are handed to law enforcement. Scoring rewards depth and precision, not speed.</div>
+                    <div class="ctf-compact-badges">
+                        <span class="achievement-badge">10th PLACE</span>
+                        <span class="achievement-badge">16th PLACE</span>
+                        <span class="achievement-badge">25th PLACE</span>
                     </div>
                 </div>
 
-                <div class="ctf-card">
-                    <div class="ctf-title">Swimmer CTF</div>
-                    <div class="ctf-context">International Japanese geo-location CTF — 688 competitors, January 2026. Tests visual intelligence, cultural context, and systematic elimination methodology.</div>
-                    <div class="ctf-story">
-                        Ranked <span class="impact-number">128th / 688</span> — top 20% globally. Geo-OSINT is a distinct discipline from traditional intelligence work: you're identifying locations from visual cues, shadows, architecture, vegetation, and signage. The competitive field includes professional geo-intelligence analysts and trained image analysts from multiple countries. Top 20% against that field reflects genuine analytical capability, not just persistence.
-                    </div>
-                    <div class="ctf-badges">
-                        <div class="achievement-badge">128th / 688</div>
-                        <div class="achievement-badge">TOP 20% GLOBALLY</div>
+                <div class="ctf-compact-card">
+                    <div class="ctf-compact-name">Swimmer CTF</div>
+                    <div class="ctf-compact-context">International geo-OSINT competition, 688 competitors, January 2026. Identifying locations from visual cues: shadows, architecture, signage, vegetation.</div>
+                    <div class="ctf-compact-badges">
+                        <span class="achievement-badge">128th / 688</span>
+                        <span class="achievement-badge">TOP 20% GLOBALLY</span>
                     </div>
                 </div>
 
-                <div class="ctf-card">
-                    <div class="ctf-title">Gasparilla CTF</div>
-                    <div class="ctf-context">University of Tampa local CTF — technical categories including SQL injection and digital forensics.</div>
-                    <div class="ctf-story">
-                        5th place across a mixed technical field. SQL and forensics categories are directly applicable to incident response work — extracting artifacts from disk images, analyzing database query logs for injection attempts. The same techniques I applied competitively are ones I applied professionally during vulnerability assessments at WIA.
-                    </div>
-                    <div class="ctf-badges">
-                        <div class="achievement-badge">5th PLACE</div>
-                        <div class="achievement-badge">SQL</div>
-                        <div class="achievement-badge">FORENSICS</div>
+                <div class="ctf-compact-card">
+                    <div class="ctf-compact-name">Gasparilla CTF</div>
+                    <div class="ctf-compact-context">University of Tampa local competition. SQL injection and digital forensics categories directly applicable to incident response work.</div>
+                    <div class="ctf-compact-badges">
+                        <span class="achievement-badge">5th PLACE</span>
+                        <span class="achievement-badge">SQL</span>
+                        <span class="achievement-badge">FORENSICS</span>
                     </div>
                 </div>
 
-                <div class="ctf-card">
-                    <div class="ctf-title">Raymond James CTF</div>
-                    <div class="ctf-context">Critical thinking and security problem solving in a financial services context.</div>
-                    <div class="ctf-story">
-                        14th place. Financial sector CTFs tend to emphasize GRC and compliance reasoning alongside technical challenges — relevant experience given my interest in the insurance/financial services security domain where regulatory frameworks (NYCRR 500, HIPAA) are as important as technical controls.
-                    </div>
-                    <div class="ctf-badges">
-                        <div class="achievement-badge">14th PLACE</div>
-                        <div class="achievement-badge">FINTECH CONTEXT</div>
+                <div class="ctf-compact-card">
+                    <div class="ctf-compact-name">Raymond James CTF</div>
+                    <div class="ctf-compact-context">Financial services security context. GRC and compliance reasoning alongside technical challenges, relevant to insurance and financial sector security.</div>
+                    <div class="ctf-compact-badges">
+                        <span class="achievement-badge">14th PLACE</span>
+                        <span class="achievement-badge">FINTECH CONTEXT</span>
                     </div>
                 </div>
             </div>
@@ -381,36 +221,34 @@
             </div>
             <div class="story-card">
                 <div class="story-meta">
-                    <span class="story-company">Alpha Kappa Psi – Founding Member</span>
-                    <span class="story-date">January 2024 – December 2025</span>
+                    <span class="story-company">Alpha Kappa Psi, Founding Member</span>
+                    <span class="story-date">January 2024 to December 2025</span>
                 </div>
-                <div class="story-title">Technology Committee Chair — Security Awareness at Scale</div>
+                <div class="story-title">Technology Committee Chair</div>
                 <div class="story-content">
-                    As a founding member and Technology Committee Chair, I ran the chapter's security awareness program for 50+ members. The challenge was the same one every security awareness program faces: people don't engage with training that feels like compliance theatre.
+                    I ran the chapter's security awareness program for 50+ members as a founding member and Technology Chair. The challenge every security awareness program faces is the same: people don't engage with training that feels like compliance theatre. I designed realistic phishing simulations using the chapter's own communication channels and vendors. When members clicked, they got immediate, contextual feedback rather than a quarterly lecture.
                     <br><br>
-                    I designed realistic phishing simulations using the chapter's actual communication channels and vendors. When members clicked, they received immediate, contextual feedback — not a quarterly lecture. The program ran alongside hands-on workshops rather than replacing them.
-                    <br><br>
-                    Result: <strong>60% reduction in phishing simulation click rates</strong> over two semesters. The approach I developed at AKΨ directly informed how I structured the phishing program at Karen J. Solofsky OD — the methodology scales.
+                    Result: <strong style="color:var(--accent-cyan)">60% reduction in phishing click rates</strong> over two semesters. The same methodology scaled directly to the phishing program I built at Karen J. Solofsky OD.
                 </div>
                 <div class="story-tags">
-                    <span class="tag">LEADERSHIP</span>
                     <span class="tag">SECURITY AWARENESS</span>
-                    <span class="tag">-60% PHISHING</span>
                     <span class="tag">PROGRAM DESIGN</span>
+                    <span class="tag">60% PHISHING REDUCTION</span>
+                    <span class="tag">LEADERSHIP</span>
                 </div>
             </div>
         </section>
 
-        <!-- What I'm looking for -->
+        <!-- What I'm Looking For -->
         <section class="section">
             <div class="story-card">
                 <div class="story-title">What I'm Looking For</div>
                 <div class="story-content">
-                    I want to work on problems that are genuinely hard — either technically or organizationally. I'm most energized when I can own a problem from reconnaissance through remediation, rather than sitting in one slice of a workflow.
+                    I want to work on problems that are genuinely hard, either technically or organizationally. I'm most energized when I can own a problem from reconnaissance through remediation rather than sitting in one slice of a workflow.
                     <br><br>
-                    The roles that interest me most: threat intelligence analyst, SOC analyst with automation scope, GRC practitioner in a regulated industry (insurance/financial/healthcare), or security engineer on an internal tooling team. I'm open to roles that skew more technical or more strategic — what matters is that there's room to build something and measure whether it worked.
+                    The roles that interest me most: threat intelligence analyst, SOC analyst with automation scope, GRC practitioner in a regulated industry (insurance, financial, healthcare), or security engineer on an internal tooling team. What matters is that there's room to build something and measure whether it worked.
                     <br><br>
-                    If you're working on interesting security challenges, I'd rather have a conversation than exchange a resume. Reach out.
+                    If you're working on interesting security challenges, reach out.
                 </div>
             </div>
         </section>
