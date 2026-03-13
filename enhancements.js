@@ -135,20 +135,6 @@
             drawSegRing(rx, ry, R1, col, 0.7, 1.2, 3, 0.55, -rot * 1.4 * Math.PI / 180);
             noGlow();
 
-            // Cardinal ticks outside outer ring
-            [0, 90, 180, 270].forEach(deg => {
-                const a  = deg * Math.PI / 180;
-                glow(col, 5);
-                ctx.beginPath();
-                ctx.moveTo(rx + Math.cos(a) * (R2 + 5), ry + Math.sin(a) * (R2 + 5));
-                ctx.lineTo(rx + Math.cos(a) * (R2 + 12), ry + Math.sin(a) * (R2 + 12));
-                ctx.strokeStyle = rgba(col, 0.75);
-                ctx.lineWidth   = 1.5;
-                ctx.lineCap     = 'round';
-                ctx.stroke();
-                noGlow();
-            });
-
             // Centre dot — velocity stretched
             ctx.save();
             ctx.translate(mx, my);
