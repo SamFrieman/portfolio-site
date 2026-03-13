@@ -8,6 +8,103 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .project-problem {
+            background: rgba(255,45,85,0.04);
+            border-left: 2px solid rgba(255,45,85,0.3);
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.83rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            opacity: 0.92;
+        }
+        .project-problem::before {
+            content: 'PROBLEM SOLVED ▸ ';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.52rem;
+            letter-spacing: 2px;
+            color: var(--accent-red);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .project-decision {
+            background: rgba(245,166,35,0.04);
+            border-left: 2px solid rgba(245,166,35,0.3);
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.83rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            opacity: 0.92;
+        }
+        .project-decision::before {
+            content: 'KEY DESIGN DECISION ▸ ';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.52rem;
+            letter-spacing: 2px;
+            color: var(--accent-amber);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .project-impact {
+            background: rgba(0,230,118,0.04);
+            border-left: 2px solid rgba(0,230,118,0.3);
+            padding: 0.9rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.83rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            opacity: 0.92;
+        }
+        .project-impact::before {
+            content: 'REAL-WORLD IMPACT ▸ ';
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.52rem;
+            letter-spacing: 2px;
+            color: var(--accent-green);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .impact-number {
+            display: inline-block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            border: 1px solid rgba(0,230,118,0.25);
+            padding: 1px 7px;
+            border-radius: 2px;
+            background: rgba(0,230,118,0.06);
+            margin: 0 2px;
+        }
+        .project-meta-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .project-meta-item {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .project-meta-item .dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            opacity: 0.5;
+        }
+        .status-live { color: var(--accent-green); }
+        .status-wip  { color: var(--accent-amber); }
+    </style>
 </head>
 <body>
     <div class="alert-ticker" aria-hidden="true">
@@ -45,25 +142,35 @@
     <div class="container">
         <div class="page-header">
             <h1>PROJECTS</h1>
-            <p>BUILDING TOOLS THAT SOLVE REAL SECURITY PROBLEMS</p>
+            <p>TOOLS BUILT TO SOLVE REAL SECURITY PROBLEMS</p>
         </div>
 
         <section class="section">
+
+            <!-- CoreRecon -->
             <div class="project-showcase" data-id="PROJECT-01">
                 <h3>CoreRecon: Passive Reconnaissance Platform</h3>
-                <div class="project-tech-stack">FastAPI · React · Python · Docker · Redis · Celery</div>
+                <div class="project-meta-row">
+                    <div class="project-meta-item"><div class="dot"></div>FastAPI · React · Python · Docker · Redis · Celery</div>
+                    <div class="project-meta-item status-live"><div class="dot" style="background:var(--accent-green);opacity:1;"></div>LIVE ON GITHUB</div>
+                </div>
+
+                <div class="project-problem">
+                    Security analysts spend 20–40 minutes per target manually stitching together DNS records, WHOIS data, SSL cert chains, subdomain lists, and security headers from 6–8 different tools. During M&amp;A due diligence, this doesn't scale to 40 targets. I built CoreRecon to collapse that workflow into a single interface that returns a risk-scored report in under 30 seconds.
+                </div>
+
                 <p class="project-description">
-                    Engineered full-stack reconnaissance web app using FastAPI and React with 8 passive intelligence 
-                    modules (DNS analysis, SSL/TLS validation, WHOIS lookup, subdomain enumeration via crt.sh/HackerTarget, 
-                    technology fingerprinting, and security header analysis). Built robust input sanitization preventing 
-                    XSS and SQL injection attacks across all user inputs.
-                    <br><br>
-                    Implemented automated PDF reporting with comprehensive risk scoring algorithm analyzing certificate 
-                    validity, protocol configuration, and security posture. SQLite persistence layer tracks 500+ malicious 
-                    indicators with historical scan correlation and repeat target detection. Responsive React interface 
-                    features expandable intelligence cards, real-time validation, and dynamic risk visualizations—generating 
-                    detailed multi-page reports in under 30 seconds.
+                    CoreRecon is a full-stack web application integrating 8 passive intelligence modules: DNS analysis, SSL/TLS chain validation, WHOIS lookup, subdomain enumeration via crt.sh and HackerTarget, technology fingerprinting via server headers, and security header grading. All modules run in parallel using Celery + Redis — that's how I hit the sub-30-second target despite 8 concurrent API calls.
                 </p>
+
+                <div class="project-decision">
+                    I chose passive-only collection deliberately. Active scanning (Nmap, Nikto) would be faster and more comprehensive, but it creates legal exposure when assessing targets without explicit authorization — exactly the scenario I'd experienced during M&amp;A work at WIA. Every technique in CoreRecon works from public sources only, making it safe to use in pre-authorization reconnaissance. I also built XSS and SQL injection input sanitization into all user-facing inputs — I'd seen too many security tools skip this because "only security people use it."
+                </div>
+
+                <div class="project-impact">
+                    Reduces per-target reconnaissance time from <span class="impact-number">~35 min</span> to <span class="impact-number">&lt;30 sec</span>. SQLite persistence layer tracks 500+ malicious indicators with historical scan correlation — repeat targets surface immediately rather than requiring re-analysis. Automated PDF reporting removes the manual step of formatting findings for stakeholder delivery.
+                </div>
+
                 <a href="https://github.com/SamFrieman/core-recon-passive-reconnaissance" target="_blank" rel="noopener noreferrer" class="project-link">
                     → VIEW ON GITHUB
                 </a>
@@ -73,83 +180,119 @@
                     <span class="tag">8 INTEL MODULES</span>
                     <span class="tag">PDF REPORTING</span>
                     <span class="tag">RISK SCORING</span>
+                    <span class="tag">PASSIVE ONLY</span>
                 </div>
             </div>
 
+            <!-- Bakery Encoder -->
             <div class="project-showcase" data-id="PROJECT-02">
-                <h3>Bakery Encoder/Decoder: Multi-Cipher Analysis Tool</h3>
-                <div class="project-tech-stack">JavaScript · Cryptography</div>
+                <h3>Bakery Encoder/Decoder: Malware Analysis Utility</h3>
+                <div class="project-meta-row">
+                    <div class="project-meta-item"><div class="dot"></div>JavaScript · Cryptography · Client-Side Only</div>
+                    <div class="project-meta-item status-live"><div class="dot" style="background:var(--accent-green);opacity:1;"></div>FULLY OFFLINE CAPABLE</div>
+                </div>
+
+                <div class="project-problem">
+                    During incident response, analysts frequently encounter encoded payloads — Base64 strings in registry keys, ROT13 in phishing URLs, hex-encoded PowerShell. The workflow is: paste into CyberChef, guess the encoding, try again. For obfuscated malware with chained encodings, this is slow and error-prone. Worse, pasting potentially malicious content into a cloud-hosted tool is a data handling risk some organizations prohibit.
+                </div>
+
                 <p class="project-description">
-                    Comprehensive client-side tool supporting 50+ bidirectional encoding/cipher methods across 5 categories: 
-                    Base encodings (Base64/32/16/85/58/62), web encodings (URL/HTML/Unicode), numeric representations 
-                    (Binary/Octal/Hex), substitution ciphers (ROT1-25, Caesar, Atbash, Morse, Bacon), and transposition methods.
-                    <br><br>
-                    Built intelligent auto-detection system with weighted quality scoring algorithm achieving 85%+ accuracy. 
-                    Developed comprehensive threat pattern detection engine scanning for 40+ malicious command indicators 
-                    across PowerShell execution, system enumeration, and obfuscation utilities. Implemented defense-in-depth 
-                    security with client-side rate limiting and XSS pattern blocking—fully offline with &lt;100ms processing latency.
+                    Bakery supports 50+ bidirectional encoding/cipher methods across 5 categories: Base encodings (Base64/32/16/85/58/62), web encodings (URL/HTML/Unicode), numeric representations (Binary/Octal/Hex), substitution ciphers (ROT1–25, Caesar, Atbash, Morse, Bacon), and transposition methods. The auto-detection engine uses weighted quality scoring rather than simple pattern matching — it scores each candidate decoding on entropy, printable character ratio, and keyword presence to achieve 85%+ accuracy on real-world samples.
                 </p>
+
+                <div class="project-decision">
+                    Fully client-side JavaScript was a deliberate architectural choice. Incident responders working on compromised systems, or in air-gapped environments, need tools that work offline. No data ever leaves the browser — which also means no logging, no API keys to rotate, no server to maintain. &lt;100ms processing latency is a side effect of local execution, not an optimization target.
+                </div>
+
+                <div class="project-impact">
+                    Threat pattern detection engine flags 40+ malicious command indicators: PowerShell execution policy bypasses, system enumeration commands, known obfuscation utilities. This converts a decoding tool into an analyst assist — not just "what is this string" but "is this string dangerous."
+                </div>
+
                 <a href="https://github.com/SamFrieman/bakery-encoder-decoder" target="_blank" rel="noopener noreferrer" class="project-link">
                     → VIEW ON GITHUB
                 </a>
                 <div class="story-tags">
                     <span class="tag">CRYPTOGRAPHY</span>
                     <span class="tag">THREAT DETECTION</span>
-                    <span class="tag">100+ CIPHERS</span>
+                    <span class="tag">50+ CIPHERS</span>
                     <span class="tag">MALWARE ANALYSIS</span>
                     <span class="tag">OFFLINE CAPABLE</span>
+                    <span class="tag">NO SERVER REQUIRED</span>
                 </div>
             </div>
 
+            <!-- SOC Automation -->
             <div class="project-showcase" data-id="PROJECT-03">
-                <h3>SOC Automation Platform: Streamlining Incident Response</h3>
-                <div class="project-tech-stack">Python</div>
+                <h3>SOC Automation Platform: Incident Response Orchestration</h3>
+                <div class="project-meta-row">
+                    <div class="project-meta-item"><div class="dot"></div>Python · SOAR Concepts · Threat Intelligence APIs</div>
+                    <div class="project-meta-item status-wip"><div class="dot" style="background:var(--accent-amber);opacity:1;"></div>IN ACTIVE DEVELOPMENT</div>
+                </div>
+
+                <div class="project-problem">
+                    Alert fatigue isn't just a staffing problem — it's an architecture problem. When analysts must manually enrich every alert (IP lookup → WHOIS → VirusTotal → ticketing system), they burn decision bandwidth on mechanical steps before they've even started analysis. I've seen this pattern at Windward Consulting: the repetitive overhead was measurable, and it was getting worse as alert volume grew.
+                </div>
+
                 <p class="project-description">
-                    After spending time in SOC environments, I noticed the same pattern: analysts drowning in repetitive 
-                    tasks that could be automated, while genuine threats sometimes slip through because of alert fatigue.
-                    <br><br>
-                    The SOC Automation Platform addresses this by orchestrating common incident response 
-                    workflows—automated enrichment, threat intelligence lookups, and ticket management. The goal is 
-                    simple: let the machines handle the mechanical parts so analysts can focus on investigations that 
-                    actually require human expertise.
+                    The SOC Automation Platform orchestrates common incident response workflows: automated indicator enrichment across threat intelligence APIs, contextual alert correlation, and structured ticketing with pre-populated investigation notes. The architecture is modular — each enrichment step is a pluggable handler that can be enabled, disabled, or rate-limited independently.
                 </p>
+
+                <div class="project-decision">
+                    Rather than building a monolithic SOAR replacement (which would take years and a team), I designed for the 80% case: the repetitive enrichment steps that any analyst could describe in 5 minutes but that consume 30+ minutes per shift. The goal is to give analysts a head-start, not replace their judgment. Human escalation paths are first-class citizens in the design — the system explicitly surfaces when it doesn't know something.
+                </div>
+
+                <div class="project-impact">
+                    Target impact based on Windward data: <span class="impact-number">3–5 hrs/week</span> recovered per analyst. Demo environment in progress — the platform is being developed against realistic synthetic alert data to validate the enrichment pipeline before production readiness claims.
+                </div>
+
                 <a href="https://github.com/SamFrieman/soc-automation-platform" target="_blank" rel="noopener noreferrer" class="project-link">
                     → VIEW ON GITHUB
                 </a>
                 <div class="story-tags">
                     <span class="tag">Python</span>
-                    <span class="tag">SOC PLATFORM</span>
+                    <span class="tag">SOAR CONCEPTS</span>
                     <span class="tag">OWASP TOP 10</span>
                     <span class="tag">MITRE ATT&amp;CK</span>
-                    <span class="tag">DEMO COMING SOON</span>
+                    <span class="tag">MODULAR ARCHITECTURE</span>
                 </div>
             </div>
 
+            <!-- C2 Beacon Detector -->
             <div class="project-showcase" data-id="PROJECT-04">
                 <h3>C2 Beacon Detector: Browser-Based Threat Hunting</h3>
-                <div class="project-tech-stack">JavaScript · Machine Learning · Threat Intelligence</div>
+                <div class="project-meta-row">
+                    <div class="project-meta-item"><div class="dot"></div>JavaScript · Machine Learning · ThreatFox API</div>
+                    <div class="project-meta-item status-live"><div class="dot" style="background:var(--accent-green);opacity:1;"></div>LIVE ON GITHUB</div>
+                </div>
+
+                <div class="project-problem">
+                    C2 beacon traffic is designed to blend in. A Cobalt Strike beacon with 60-second check-ins and 10% jitter looks like background noise to most network monitoring tools. Detecting it requires statistical analysis of timing patterns across thousands of connections — which means either expensive commercial tooling or hours of manual PCAP analysis in Wireshark. Neither is accessible to a threat hunter working a lead at 11pm on a personal machine.
+                </div>
+
                 <p class="project-description">
-                    Professional-grade, client-side tool that identifies Command &amp; Control (C2) activity 
-                    through behavioral patterns and machine learning. Built entirely in JavaScript, it performs local, 
-                    privacy-focused analysis of network traffic—examining timing intervals, jitter, and payload 
-                    consistency—while cross-referencing findings against the ThreatFox API and known framework 
-                    signatures like Cobalt Strike.
-                    <br><br>
-                    The engine delivers high-fidelity threat scoring and maps detections directly to MITRE ATT&amp;CK 
-                    techniques. Designed for incident responders and threat hunters, it generates actionable reports 
-                    in HTML, PDF, and JSON formats without requiring a backend—ensuring a secure, browser-based 
-                    workflow for detecting sophisticated anomalies in real-time.
+                    C2 Beacon Detector analyzes network traffic for behavioral C2 signatures: consistent timing intervals with predictable jitter, payload size consistency, and beaconing regularity. It cross-references suspicious connections against the ThreatFox API and a local signature database of known framework patterns including Cobalt Strike, Metasploit Meterpreter, and Sliver. All analysis runs client-side in the browser — no backend, no data exfiltration risk for the traffic samples being analyzed.
                 </p>
+
+                <div class="project-decision">
+                    MITRE ATT&CK technique mapping (T1071, T1572, T1095) was built in from the start, not added as an afterthought. This was a deliberate choice to make findings immediately actionable in enterprise environments where SIEM rules and detection playbooks are organized by ATT&CK ID. A finding that says "suspicious beaconing interval" is ambiguous; a finding that says "T1071.001 — Application Layer Protocol: Web Protocols" maps directly to existing detection logic.
+                </div>
+
+                <div class="project-impact">
+                    Output in HTML, PDF, and JSON formats covers the three primary consumer use cases: analyst reports (HTML), management briefings (PDF), and SIEM integration (JSON). The browser-based architecture means zero deployment friction — share a URL, open a browser, start hunting.
+                </div>
+
                 <a href="https://github.com/SamFrieman/c2-beacon-detector" target="_blank" rel="noopener noreferrer" class="project-link">
                     → VIEW ON GITHUB
                 </a>
                 <div class="story-tags">
                     <span class="tag">JAVASCRIPT</span>
                     <span class="tag">THREAT HUNTING</span>
-                    <span class="tag">INCIDENT RESPONSE</span>
-                    <span class="tag">SOC AUTOMATION</span>
+                    <span class="tag">MITRE ATT&amp;CK</span>
+                    <span class="tag">COBALT STRIKE DETECTION</span>
+                    <span class="tag">PRIVACY-FIRST</span>
                 </div>
             </div>
+
         </section>
     </div>
 
