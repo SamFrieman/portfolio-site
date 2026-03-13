@@ -7,7 +7,7 @@
     'use strict';
 
     /* ─────────────────────────────────────────────────────
-       CURSOR — Precision Targeting Reticle + Spiral Trail
+       CURSOR — Precision Targeting Reticle
     ───────────────────────────────────────────────────── */
     function initCursor() {
         const cv = document.createElement('canvas');
@@ -31,12 +31,9 @@
         const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
 
         let mx = -300, my = -300, rx = -300, ry = -300;
-        let px = -300, py = -300;
         let rot = 0;
         let hovered = false;
         let visible = true;
-
-
 
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
         document.addEventListener('mouseleave', () => { visible = false; });
@@ -51,7 +48,7 @@
                 '.ttp-category', '.ctf-compact-card', '.profile-card',
             ].join(',');
             document.querySelectorAll(SEL).forEach(el => {
-                if (el._cursorBound) return; /* prevent duplicate listeners */
+                if (el._cursorBound) return;
                 el._cursorBound = true;
                 el.addEventListener('mouseenter', () => { hovered = true; });
                 el.addEventListener('mouseleave', () => { hovered = false; });
@@ -59,14 +56,12 @@
         }
         refreshHoverTargets();
 
-        function glow(color, r)  { ctx.shadowColor = rgba(color, 0.9); ctx.shadowBlur = r; }
-        function noGlow()        { ctx.shadowBlur = 0; }
-
         function drawSegRing(x, y, r, color, alpha, lw, segs, gap, offset) {
             const step = (Math.PI * 2) / segs;
             ctx.strokeStyle = rgba(color, alpha);
             ctx.lineWidth   = lw;
             ctx.lineCap     = 'round';
+            ctx.shadowBlur  = 0;
             for (let i = 0; i < segs; i++) {
                 const s = offset + i * step + gap / 2;
                 const e = offset + (i + 1) * step - gap / 2;
@@ -77,8 +72,7 @@
         }
 
         function draw() {
-            const W = window.innerWidth, H = window.innerHeight;
-            ctx.clearRect(0, 0, W, H);
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
             if (!visible) { requestAnimationFrame(draw); return; }
 
             const col  = hovered ? AMB : CYN;
@@ -88,39 +82,20 @@
 
             rx += (mx - rx) * 0.16;
             ry += (my - ry) * 0.16;
-
-            const vx = mx - px, vy = my - py;
-            const spd = Math.sqrt(vx * vx + vy * vy);
-            const mAng = Math.atan2(vy, vx);
-            px = mx; py = my;
             rot += spd2;
 
-
             /* outer ring */
-            glow(col, 7);
-            drawSegRing(rx, ry, R2, col, 0.5, 1, 4, 0.38, rot * Math.PI / 180);
-            noGlow();
-
+            drawSegRing(rx, ry, R2, col, 0.5, 1,   4, 0.38,  rot * Math.PI / 180);
             /* inner ring */
-            glow(col, 4);
             drawSegRing(rx, ry, R1, col, 0.7, 1.2, 3, 0.55, -rot * 1.4 * Math.PI / 180);
-            noGlow();
 
-            /* centre dot — velocity stretched */
-            ctx.save();
-            ctx.translate(mx, my);
-            ctx.rotate(spd > 1 ? mAng : 0);
-            const stretch = Math.min(1 + spd * 0.07, 2.5);
-            ctx.scale(stretch, 1 / stretch);
-            glow(col, 12);
+            /* centre dot */
             ctx.beginPath();
-            ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+            ctx.arc(mx, my, 2.5, 0, Math.PI * 2);
             ctx.fillStyle = hovered ? rgba(AMB, 1) : '#ffffff';
             ctx.fill();
-            noGlow();
-            ctx.restore();
 
-            /* hover pulse */
+            /* hover pulse ring */
             if (hovered) {
                 const pulse = 0.5 + 0.5 * Math.sin(Date.now() * 0.008);
                 ctx.beginPath();
