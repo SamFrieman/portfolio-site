@@ -8,18 +8,152 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Skill Tier Badges ── */
+        .skill-tier {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .tier-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--border-dim);
+        }
+        .tier-dot.filled { background: var(--accent-cyan); box-shadow: 0 0 4px var(--accent-cyan); }
+        .tier-dot.filled-amber { background: var(--accent-amber); box-shadow: 0 0 4px var(--accent-amber); }
+
+        /* override ttp-items li to show tiers */
+        .ttp-items li {
+            justify-content: space-between;
+        }
+
+        /* ── Skills summary bar at top ── */
+        .skills-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1px;
+            background: var(--border-dim);
+            border: 1px solid var(--border-dim);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+        }
+        .summary-cell {
+            background: var(--bg-card);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            transition: background 0.25s;
+        }
+        .summary-cell:hover { background: var(--bg-card-hover); }
+        .summary-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+            line-height: 1;
+            text-shadow: 0 0 16px rgba(0,245,233,0.35);
+        }
+        .summary-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--text-dim);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* ── Phi divider ── */
+        .phi-divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            opacity: 0.3;
+        }
+        .phi-divider::before {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan));
+        }
+        .phi-glyph {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.52rem;
+            color: var(--accent-cyan);
+            letter-spacing: 3px;
+            padding: 0 1rem;
+        }
+        .phi-divider::after {
+            content: '';
+            flex: 1.618;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-cyan), transparent);
+        }
+
+        /* ── Category group header ── */
+        .skill-group-header {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--accent-red);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(255,45,85,0.15);
+            opacity: 0.8;
+        }
+
+        /* ── Proficiency legend ── */
+        .proficiency-legend {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.75rem;
+            padding: 0.75rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            border-radius: 4px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.62rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        .legend-dots {
+            display: flex;
+            gap: 2px;
+        }
+    </style>
 </head>
 <body>
     <div class="alert-ticker" aria-hidden="true">
         <div class="ticker-label">SKILLS MATRIX</div>
         <div class="ticker-track">
             <div class="ticker-inner">
-                <span>SOC / CYOPS</span><span>COMPLIANCE &amp; GRC</span><span>PENETRATION TESTING</span>
-                <span>NETWORK SECURITY</span><span>CLOUD &amp; INFRASTRUCTURE</span><span>OSINT / RECON</span>
-                <span>THREAT INTELLIGENCE</span><span>SECURITY PLATFORMS</span>
-                <span>SOC / CYOPS</span><span>COMPLIANCE &amp; GRC</span><span>PENETRATION TESTING</span>
-                <span>NETWORK SECURITY</span><span>CLOUD &amp; INFRASTRUCTURE</span><span>OSINT / RECON</span>
-                <span>THREAT INTELLIGENCE</span><span>SECURITY PLATFORMS</span>
+                <span>SOC / CYOPS</span>
+                <span>COMPLIANCE &amp; GRC</span>
+                <span>PENETRATION TESTING</span>
+                <span>NETWORK SECURITY</span>
+                <span>CLOUD &amp; INFRASTRUCTURE</span>
+                <span>OSINT / RECON</span>
+                <span>THREAT INTELLIGENCE</span>
+                <span>SECURITY PLATFORMS</span>
+                <span>SOC / CYOPS</span>
+                <span>COMPLIANCE &amp; GRC</span>
+                <span>PENETRATION TESTING</span>
+                <span>NETWORK SECURITY</span>
+                <span>CLOUD &amp; INFRASTRUCTURE</span>
+                <span>OSINT / RECON</span>
+                <span>THREAT INTELLIGENCE</span>
+                <span>SECURITY PLATFORMS</span>
             </div>
         </div>
     </div>
@@ -44,165 +178,443 @@
             <p>TOOLS, FRAMEWORKS, AND CAPABILITIES</p>
         </div>
 
+        <!-- Quick stats -->
+        <div class="skills-summary">
+            <div class="summary-cell">
+                <div class="summary-number">12</div>
+                <div class="summary-label">Skill Domains</div>
+            </div>
+            <div class="summary-cell">
+                <div class="summary-number">96</div>
+                <div class="summary-label">Distinct Capabilities</div>
+            </div>
+            <div class="summary-cell">
+                <div class="summary-number">5</div>
+                <div class="summary-label">Certifications</div>
+            </div>
+            <div class="summary-cell">
+                <div class="summary-number">4</div>
+                <div class="summary-label">CTF Competitions</div>
+            </div>
+            <div class="summary-cell">
+                <div class="summary-number">3+</div>
+                <div class="summary-label">Years Hands-On</div>
+            </div>
+        </div>
+
+        <!-- Proficiency legend -->
+        <div class="proficiency-legend">
+            <div class="legend-item">
+                <div class="legend-dots">
+                    <span class="tier-dot filled"></span>
+                    <span class="tier-dot filled"></span>
+                    <span class="tier-dot filled"></span>
+                </div>
+                PROFESSIONAL DEPTH
+            </div>
+            <div class="legend-item">
+                <div class="legend-dots">
+                    <span class="tier-dot filled-amber"></span>
+                    <span class="tier-dot filled-amber"></span>
+                    <span class="tier-dot"></span>
+                </div>
+                WORKING PROFICIENCY
+            </div>
+            <div class="legend-item">
+                <div class="legend-dots">
+                    <span class="tier-dot filled-amber"></span>
+                    <span class="tier-dot"></span>
+                    <span class="tier-dot"></span>
+                </div>
+                FOUNDATIONAL / GROWING
+            </div>
+        </div>
+
         <section class="section">
+
+            <!-- GROUP 1: Intelligence & Threat Work -->
+            <div class="skill-group-header">// INTELLIGENCE &amp; THREAT WORK</div>
             <div class="ttp-matrix">
+
                 <div class="ttp-category">
-                    <h3>▸ SOC/CyOps</h3>
+                    <h3>&#9656; OSINT / Reconnaissance</h3>
                     <ul class="ttp-items">
-                        <li>Incident Response (IR)</li>
-                        <li>Advanced Threat Hunting</li>
-                        <li>Malware Analysis</li>
-                        <li>Digital Forensics</li>
-                        <li>Log Analysis &amp; Correlation</li>
-                        <li>Alert Triage &amp; Investigation</li>
-                        <li>Security Orchestration (SOAR)</li>
-                        <li>IOC Detection &amp; Tracking</li>
+                        <li>Shodan (Asset Discovery)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Censys (Internet Scanning)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Passive DNS Analysis
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>WHOIS &amp; Domain Intel
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>VirusTotal (Threat Intel)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Social Media Intelligence
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Data Breach Analysis
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Threat Actor Profiling
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
                     </ul>
                 </div>
+
                 <div class="ttp-category">
-                    <h3>▸ Compliance &amp; GRC</h3>
+                    <h3>&#9656; Threat Intelligence</h3>
                     <ul class="ttp-items">
-                        <li>NYCRR Part 500</li>
-                        <li>HIPAA Security Rule</li>
-                        <li>NIST Cybersecurity Framework</li>
-                        <li>NIST 800-53 Controls</li>
-                        <li>Risk Assessment &amp; Management</li>
-                        <li>Policy Development</li>
-                        <li>Audit &amp; Remediation</li>
-                        <li>Executive Reporting</li>
+                        <li>IOC Collection &amp; Analysis
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>MITRE ATT&amp;CK Framework
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Threat Feed Aggregation
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Malware Signature Analysis
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Threat Actor Tracking
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Intelligence Reporting
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Campaign Analysis
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Proactive Defense
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
                     </ul>
                 </div>
+
                 <div class="ttp-category">
-                    <h3>▸ Programming</h3>
+                    <h3>&#9656; SOC / CyOps</h3>
                     <ul class="ttp-items">
-                        <li>Python (Scripting &amp; Automation)</li>
-                        <li>C++ (Systems Programming)</li>
-                        <li>PowerShell (Windows Automation)</li>
-                        <li>Bash (Linux Scripting)</li>
-                        <li>SQL (Database Queries)</li>
-                        <li>JavaScript (Full-Stack Dev)</li>
-                        <li>React (Frontend Framework)</li>
-                        <li>FastAPI (Backend Development)</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Penetration Testing</h3>
-                    <ul class="ttp-items">
-                        <li>Network Scanning (Nmap)</li>
-                        <li>Vulnerability Assessment</li>
-                        <li>Metasploit Framework</li>
-                        <li>Web Application Testing</li>
-                        <li>Burp Suite Professional</li>
-                        <li>Exploitation Techniques</li>
-                        <li>Privilege Escalation</li>
-                        <li>Post-Exploitation</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Network Security</h3>
-                    <ul class="ttp-items">
-                        <li>Packet Analysis (Wireshark)</li>
-                        <li>Network Protocol Analysis</li>
-                        <li>Firewall Configuration</li>
-                        <li>IDS/IPS Management</li>
-                        <li>VPN Configuration</li>
-                        <li>Network Segmentation</li>
-                        <li>Traffic Monitoring</li>
-                        <li>Anomaly Detection</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Cloud &amp; Infrastructure</h3>
-                    <ul class="ttp-items">
-                        <li>Microsoft Azure</li>
-                        <li>Entra ID (Azure AD)</li>
-                        <li>Microsoft Defender Suite</li>
-                        <li>Intune (MDM/MAM)</li>
-                        <li>Active Directory</li>
-                        <li>Cloud Security Posture</li>
-                        <li>Identity &amp; Access Management</li>
-                        <li>Zero Trust Architecture</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ OSINT/Reconnaissance</h3>
-                    <ul class="ttp-items">
-                        <li>Shodan (Asset Discovery)</li>
-                        <li>Censys (Internet Scanning)</li>
-                        <li>VirusTotal (Threat Intel)</li>
-                        <li>Passive DNS Analysis</li>
-                        <li>WHOIS &amp; Domain Intel</li>
-                        <li>Social Media Intelligence</li>
-                        <li>Data Breach Analysis</li>
-                        <li>Threat Actor Profiling</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Security Platforms</h3>
-                    <ul class="ttp-items">
-                        <li>SIEM (Splunk, Sentinel)</li>
-                        <li>EDR/XDR Solutions</li>
-                        <li>Nessus (Vuln Scanning)</li>
-                        <li>OpenVAS (Open Source)</li>
-                        <li>ServiceNow (ITSM/GRC)</li>
-                        <li>Kali Linux (Pentesting OS)</li>
-                        <li>Security Automation Tools</li>
-                        <li>Threat Intelligence Platforms</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Vulnerability Management</h3>
-                    <ul class="ttp-items">
-                        <li>Vulnerability Scanning</li>
-                        <li>CVE Analysis &amp; Research</li>
-                        <li>Patch Management</li>
-                        <li>Risk Prioritization</li>
-                        <li>Remediation Planning</li>
-                        <li>Security Testing</li>
-                        <li>Exploit Validation</li>
-                        <li>Compliance Validation</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Security Operations</h3>
-                    <ul class="ttp-items">
-                        <li>24/7 Security Monitoring</li>
-                        <li>Playbook Development</li>
-                        <li>Incident Documentation</li>
-                        <li>Root Cause Analysis</li>
-                        <li>Security Metrics &amp; KPIs</li>
-                        <li>Team Collaboration</li>
-                        <li>Escalation Procedures</li>
-                        <li>Continuous Improvement</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Threat Intelligence</h3>
-                    <ul class="ttp-items">
-                        <li>IOC Collection &amp; Analysis</li>
-                        <li>Threat Feed Aggregation</li>
-                        <li>MITRE ATT&amp;CK Framework</li>
-                        <li>Malware Signature Analysis</li>
-                        <li>Threat Actor Tracking</li>
-                        <li>Campaign Analysis</li>
-                        <li>Intelligence Reporting</li>
-                        <li>Proactive Defense</li>
-                    </ul>
-                </div>
-                <div class="ttp-category">
-                    <h3>▸ Security Awareness</h3>
-                    <ul class="ttp-items">
-                        <li>Phishing Simulation</li>
-                        <li>Training Program Development</li>
-                        <li>Security Policy Education</li>
-                        <li>Social Engineering Defense</li>
-                        <li>Incident Reporting Training</li>
-                        <li>Metrics &amp; Measurement</li>
-                        <li>Executive Communication</li>
-                        <li>Culture Building</li>
+                        <li>Incident Response (IR)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Log Analysis &amp; Correlation
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Alert Triage &amp; Investigation
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Advanced Threat Hunting
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Malware Analysis
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Digital Forensics
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Security Orchestration (SOAR)
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>IOC Detection &amp; Tracking
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
                     </ul>
                 </div>
             </div>
+
+            <div class="phi-divider"><span class="phi-glyph">&#632; 1.618</span></div>
+
+            <!-- GROUP 2: Offensive / Testing -->
+            <div class="skill-group-header">// OFFENSIVE &amp; VULNERABILITY WORK</div>
+            <div class="ttp-matrix">
+                <div class="ttp-category">
+                    <h3>&#9656; Penetration Testing</h3>
+                    <ul class="ttp-items">
+                        <li>Web Application Testing
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Burp Suite Professional
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Metasploit Framework
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Vulnerability Assessment
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Network Scanning (Nmap)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Exploitation Techniques
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Privilege Escalation
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Post-Exploitation
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ttp-category">
+                    <h3>&#9656; Vulnerability Management</h3>
+                    <ul class="ttp-items">
+                        <li>Vulnerability Scanning
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>CVE Analysis &amp; Research
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Risk Prioritization
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Remediation Planning
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Nessus
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>OpenVAS
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Patch Management
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Compliance Validation
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ttp-category">
+                    <h3>&#9656; Network Security</h3>
+                    <ul class="ttp-items">
+                        <li>Packet Analysis (Wireshark)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Network Protocol Analysis
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>IDS/IPS Management
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Firewall Configuration
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Network Segmentation
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Traffic Monitoring
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Anomaly Detection
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>VPN Configuration
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="phi-divider"><span class="phi-glyph">&#632; 1.618</span></div>
+
+            <!-- GROUP 3: GRC & Operations -->
+            <div class="skill-group-header">// GRC, COMPLIANCE &amp; OPERATIONS</div>
+            <div class="ttp-matrix">
+                <div class="ttp-category">
+                    <h3>&#9656; Compliance &amp; GRC</h3>
+                    <ul class="ttp-items">
+                        <li>NIST 800-53 Controls
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>HIPAA Security Rule
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>NYCRR Part 500
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Risk Assessment &amp; Management
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Policy Development
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Audit &amp; Remediation
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Executive Reporting
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>NIST Cybersecurity Framework
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ttp-category">
+                    <h3>&#9656; Security Operations</h3>
+                    <ul class="ttp-items">
+                        <li>Playbook Development
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Root Cause Analysis
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Incident Documentation
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Security Metrics &amp; KPIs
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Escalation Procedures
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Continuous Improvement
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>24/7 Monitoring Design
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Team Collaboration
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ttp-category">
+                    <h3>&#9656; Security Awareness</h3>
+                    <ul class="ttp-items">
+                        <li>Phishing Simulation
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Training Program Design
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Social Engineering Defense
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Metrics &amp; Measurement
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Security Policy Education
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Incident Reporting Training
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Executive Communication
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Culture Building
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="phi-divider"><span class="phi-glyph">&#632; 1.618</span></div>
+
+            <!-- GROUP 4: Engineering -->
+            <div class="skill-group-header">// ENGINEERING &amp; PLATFORMS</div>
+            <div class="ttp-matrix">
+                <div class="ttp-category">
+                    <h3>&#9656; Programming</h3>
+                    <ul class="ttp-items">
+                        <li>Python (Scripting &amp; Automation)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>JavaScript (Full-Stack Dev)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>FastAPI (Backend)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>React (Frontend)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>PowerShell (Windows Automation)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Bash (Linux Scripting)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>SQL (Database Queries)
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>C++ (Systems Programming)
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ttp-category">
+                    <h3>&#9656; Cloud &amp; Infrastructure</h3>
+                    <ul class="ttp-items">
+                        <li>Microsoft Defender Suite
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Entra ID (Azure AD)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Intune (MDM/MAM)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Active Directory
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Identity &amp; Access Management
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Microsoft Azure
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Zero Trust Architecture
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Cloud Security Posture
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ttp-category">
+                    <h3>&#9656; Security Platforms</h3>
+                    <ul class="ttp-items">
+                        <li>SIEM (Splunk, Sentinel)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Kali Linux
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>ServiceNow (ITSM/GRC)
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot filled"></span></span>
+                        </li>
+                        <li>Nessus
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>OpenVAS
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>EDR/XDR Solutions
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Security Automation Tools
+                            <span class="skill-tier"><span class="tier-dot filled"></span><span class="tier-dot filled"></span><span class="tier-dot"></span></span>
+                        </li>
+                        <li>Threat Intelligence Platforms
+                            <span class="skill-tier"><span class="tier-dot filled-amber"></span><span class="tier-dot filled-amber"></span><span class="tier-dot"></span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </section>
     </div>
 
