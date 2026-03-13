@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   DARKNET COMMAND CENTER — Visual Enhancements
+   Visual Enhancements
    Samuel Frieman Portfolio
    ═══════════════════════════════════════════════════════ */
 
@@ -78,15 +78,6 @@
             g.addColorStop(1,   rgba(color, 0.1));
             ctx.fillStyle = g;
             ctx.fill();
-            // leading edge
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.lineTo(x + Math.cos(angle) * r, y + Math.sin(angle) * r);
-            glow(color, 8);
-            ctx.strokeStyle = rgba(color, 0.45);
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            noGlow();
             ctx.restore();
         }
 
