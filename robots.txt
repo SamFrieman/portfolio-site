@@ -67,7 +67,7 @@ User-agent: ExtractorPro
 Disallow: /
 
 # Sitemap location
-itemap: https://samfrieman.github.io/portfolio-site/sitemap.xml
+Sitemap: https://samfrieman.github.io/portfolio-site/sitemap.xml
 
 # Crawl delay for respectful bots
 Crawl-delay: 1
