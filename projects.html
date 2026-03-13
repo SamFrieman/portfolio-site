@@ -6,10 +6,28 @@
     <title>Projects | Samuel Frieman</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="alert-ticker" aria-hidden="true">
+        <div class="ticker-label">PROJECT LOG</div>
+        <div class="ticker-track">
+            <div class="ticker-inner">
+                <span>CORERECON · PASSIVE RECON PLATFORM</span>
+                <span>BAKERY ENCODER · 50+ CIPHER METHODS</span>
+                <span>C2 BEACON DETECTOR · MITRE ATT&amp;CK MAPPED</span>
+                <span>SOC AUTOMATION PLATFORM · INCIDENT RESPONSE</span>
+                <span>XSS PROTECTION · INPUT SANITIZATION ACTIVE</span>
+                <span>CORERECON · PASSIVE RECON PLATFORM</span>
+                <span>BAKERY ENCODER · 50+ CIPHER METHODS</span>
+                <span>C2 BEACON DETECTOR · MITRE ATT&amp;CK MAPPED</span>
+                <span>SOC AUTOMATION PLATFORM · INCIDENT RESPONSE</span>
+                <span>XSS PROTECTION · INPUT SANITIZATION ACTIVE</span>
+            </div>
+        </div>
+    </div>
+
     <div class="scanline"></div>
     <div class="grid-background"></div>
 
@@ -33,9 +51,9 @@
         </div>
 
         <section class="section">
-            <div class="project-showcase">
+            <div class="project-showcase" data-id="PROJECT-01">
                 <h3>CoreRecon: Passive Reconnaissance Platform</h3>
-                <div class="project-tech-stack">FastAPI • React • Python • Docker • Redis • Celery</div>
+                <div class="project-tech-stack">FastAPI · React · Python · Docker · Redis · Celery</div>
                 <p class="project-description">
                     Engineered full-stack reconnaissance web app using FastAPI and React with 8 passive intelligence 
                     modules (DNS analysis, SSL/TLS validation, WHOIS lookup, subdomain enumeration via crt.sh/HackerTarget, 
@@ -45,11 +63,11 @@
                     Implemented automated PDF reporting with comprehensive risk scoring algorithm analyzing certificate 
                     validity, protocol configuration, and security posture. SQLite persistence layer tracks 500+ malicious 
                     indicators with historical scan correlation and repeat target detection. Responsive React interface 
-                    features expandable intelligence cards, real-time validation, and dynamic risk visualizations using 
-                    SVG animations—generating detailed multi-page reports in under 30 seconds.
+                    features expandable intelligence cards, real-time validation, and dynamic risk visualizations—generating 
+                    detailed multi-page reports in under 30 seconds.
                 </p>
                 <a href="https://github.com/SamFrieman/core-recon-passive-reconnaissance" target="_blank" rel="noopener noreferrer" class="project-link">
-                    <span>→</span> VIEW ON GITHUB
+                    → VIEW ON GITHUB
                 </a>
                 <div class="story-tags">
                     <span class="tag">FastAPI</span>
@@ -60,9 +78,9 @@
                 </div>
             </div>
 
-            <div class="project-showcase">
+            <div class="project-showcase" data-id="PROJECT-02">
                 <h3>Bakery Encoder/Decoder: Multi-Cipher Analysis Tool</h3>
-                <div class="project-tech-stack">JavaScript • Cryptography</div>
+                <div class="project-tech-stack">JavaScript · Cryptography</div>
                 <p class="project-description">
                     Comprehensive client-side tool supporting 50+ bidirectional encoding/cipher methods across 5 categories: 
                     Base encodings (Base64/32/16/85/58/62), web encodings (URL/HTML/Unicode), numeric representations 
@@ -71,10 +89,10 @@
                     Built intelligent auto-detection system with weighted quality scoring algorithm achieving 85%+ accuracy. 
                     Developed comprehensive threat pattern detection engine scanning for 40+ malicious command indicators 
                     across PowerShell execution, system enumeration, and obfuscation utilities. Implemented defense-in-depth 
-                    security with client-side rate limiting and XSS pattern blocking—fully offline with <100ms processing latency.
+                    security with client-side rate limiting and XSS pattern blocking—fully offline with &lt;100ms processing latency.
                 </p>
                 <a href="https://github.com/SamFrieman/bakery-encoder-decoder" target="_blank" rel="noopener noreferrer" class="project-link">
-                    <span>→</span> VIEW ON GITHUB
+                    → VIEW ON GITHUB
                 </a>
                 <div class="story-tags">
                     <span class="tag">CRYPTOGRAPHY</span>
@@ -85,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="project-showcase">
+            <div class="project-showcase" data-id="PROJECT-03">
                 <h3>SOC Automation Platform: Streamlining Incident Response</h3>
                 <div class="project-tech-stack">Python</div>
                 <p class="project-description">
@@ -98,38 +116,39 @@
                     actually require human expertise.
                 </p>
                 <a href="https://github.com/SamFrieman/soc-automation-platform" target="_blank" rel="noopener noreferrer" class="project-link">
-                    <span>→</span> VIEW ON GITHUB
+                    → VIEW ON GITHUB
                 </a>
                 <div class="story-tags">
                     <span class="tag">Python</span>
                     <span class="tag">SOC PLATFORM</span>
                     <span class="tag">OWASP TOP 10</span>
-                    <span class="tag">MITRE ATT&CK FRAMEWORK</span>
+                    <span class="tag">MITRE ATT&amp;CK</span>
                     <span class="tag">DEMO COMING SOON</span>
                 </div>
             </div>
 
-            <div class="project-showcase">
+            <div class="project-showcase" data-id="PROJECT-04">
                 <h3>C2 Beacon Detector: Browser-Based Threat Hunting</h3>
-                <div class="project-tech-stack">JavaScript • Machine Learning • Threat Intelligence</div>
+                <div class="project-tech-stack">JavaScript · Machine Learning · Threat Intelligence</div>
                 <p class="project-description">
-                    The C2 Beacon Detector is a professional-grade, client-side tool that identifies Command & Control (C2) activity 
-                    through behavioral patterns and machine learning. Built entirely in JavaScript, it performs local, privacy-focused 
-                    analysis of network traffic—examining timing intervals, jitter, and payload consistency—while cross-referencing 
-                    findings against the ThreatFox API and known framework signatures like Cobalt Strike.
+                    Professional-grade, client-side tool that identifies Command &amp; Control (C2) activity 
+                    through behavioral patterns and machine learning. Built entirely in JavaScript, it performs local, 
+                    privacy-focused analysis of network traffic—examining timing intervals, jitter, and payload 
+                    consistency—while cross-referencing findings against the ThreatFox API and known framework 
+                    signatures like Cobalt Strike.
                     <br><br>
-                    The engine delivers high-fidelity threat scoring and maps detections directly to MITRE ATT&CK techniques. 
-                    Designed for incident responders and threat hunters, it generates actionable reports in HTML, PDF, and JSON 
-                    formats without requiring a backend. This ensures a secure, browser-based workflow for detecting sophisticated 
-                    anomalies and malicious beaconing in real-time.
+                    The engine delivers high-fidelity threat scoring and maps detections directly to MITRE ATT&amp;CK 
+                    techniques. Designed for incident responders and threat hunters, it generates actionable reports 
+                    in HTML, PDF, and JSON formats without requiring a backend—ensuring a secure, browser-based 
+                    workflow for detecting sophisticated anomalies in real-time.
                 </p>
                 <a href="https://github.com/SamFrieman/c2-beacon-detector" target="_blank" rel="noopener noreferrer" class="project-link">
-                    <span>→</span> VIEW ON GITHUB
+                    → VIEW ON GITHUB
                 </a>
                 <div class="story-tags">
                     <span class="tag">JAVASCRIPT</span>
                     <span class="tag">THREAT HUNTING</span>
-                    <span class="tag">INCIDENT REPONSE</span>
+                    <span class="tag">INCIDENT RESPONSE</span>
                     <span class="tag">SOC AUTOMATION</span>
                 </div>
             </div>
@@ -143,12 +162,11 @@
                 <a href="https://linkedin.com/in/samuel-frieman" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href="https://github.com/SamFrieman" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
-            <div class="copyright">
-                © 2026 Samuel Frieman | Cybersecurity Professional
-            </div>
+            <div class="copyright">© 2026 Samuel Frieman | Cybersecurity Professional</div>
         </div>
     </footer>
 
     <script src="script-secure.js"></script>
+    <script src="enhancements.js"></script>
 </body>
 </html>
