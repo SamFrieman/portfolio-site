@@ -36,10 +36,7 @@
         let hovered = false;
         let visible = true;
 
-        /* fibonacci-length trail: 34 points */
-        const TRAIL = 34;
-        const hist  = Array(TRAIL).fill(null).map(() => ({ x: -300, y: -300 }));
-        let histFrame = 0;
+
 
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
         document.addEventListener('mouseleave', () => { visible = false; });
@@ -98,21 +95,6 @@
             px = mx; py = my;
             rot += spd2;
 
-            /* golden-ratio trail */
-            if (histFrame % 2 === 0) { hist.unshift({ x: mx, y: my }); hist.pop(); }
-            histFrame++;
-            for (let i = 1; i < hist.length; i++) {
-                const t = 1 - i / hist.length;
-                ctx.beginPath();
-                ctx.moveTo(hist[i-1].x, hist[i-1].y);
-                ctx.lineTo(hist[i].x,   hist[i].y);
-                ctx.strokeStyle = rgba(col, t * 0.28);
-                ctx.lineWidth   = Math.max(0.5, 2.5 * t);
-                ctx.shadowColor = rgba(col, t * 0.15);
-                ctx.shadowBlur  = 4 * t;
-                ctx.stroke();
-            }
-            ctx.shadowBlur = 0;
 
             /* outer ring */
             glow(col, 7);
