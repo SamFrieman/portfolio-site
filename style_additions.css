@@ -1,0 +1,334 @@
+
+/* ═══════════════════════════════════════════════════════
+   ADDITIONS — Profile Cards, Story Outcome, Fibonacci BG
+   Append this block to the end of style.css
+   ═══════════════════════════════════════════════════════ */
+
+/* ── FIBONACCI BACKGROUND CANVAS ── */
+#fib-bg {
+    position: fixed;
+    bottom: -90px;
+    right: -90px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── PROFILE CARDS (replaces SWOT on About page) ── */
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.profile-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 5px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    border-radius: 5px 0 0 5px;
+}
+
+.profile-card.strength::before  { background: var(--accent-cyan); }
+.profile-card.growth::before    { background: var(--accent-amber); }
+.profile-card.opportunity::before { background: var(--accent-green); }
+
+.profile-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-3px);
+}
+
+.profile-card.strength:hover  { border-color: var(--border-cyan); box-shadow: 0 8px 30px rgba(0,245,233,0.08); }
+.profile-card.growth:hover    { border-color: rgba(245,166,35,0.3); box-shadow: 0 8px 30px rgba(245,166,35,0.06); }
+.profile-card.opportunity:hover { border-color: rgba(0,230,118,0.3); box-shadow: 0 8px 30px rgba(0,230,118,0.06); }
+
+.profile-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 2.5px;
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-dim);
+    text-transform: uppercase;
+}
+
+.profile-card.strength .profile-label   { color: var(--accent-cyan); }
+.profile-card.growth .profile-label     { color: var(--accent-amber); }
+.profile-card.opportunity .profile-label { color: var(--accent-green); }
+
+.profile-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.profile-card li {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    opacity: 0.85;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.profile-card li::before {
+    content: '▸';
+    font-size: 0.6rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.profile-card.strength li::before   { color: var(--accent-cyan); }
+.profile-card.growth li::before     { color: var(--accent-amber); }
+.profile-card.opportunity li::before { color: var(--accent-green); }
+
+/* ── STORY OUTCOME CALLOUT (replaces STAR result block) ── */
+.story-outcome {
+    background: rgba(0,230,118,0.04);
+    border-left: 2px solid rgba(0,230,118,0.35);
+    padding: 0.9rem 1.1rem;
+    margin: 1rem 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.83rem;
+    line-height: 1.85;
+    color: var(--text-primary);
+    opacity: 0.92;
+}
+
+.story-outcome::before {
+    content: 'OUTCOME  ▸';
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.52rem;
+    letter-spacing: 2px;
+    color: var(--accent-green);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+/* ── CTF COMPACT GRID ── */
+.ctf-compact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.ctf-compact-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 5px;
+    padding: 1.25rem 1.4rem;
+    transition: all 0.3s ease;
+}
+
+.ctf-compact-card:hover {
+    border-color: var(--border-cyan);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+}
+
+.ctf-compact-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.78rem;
+    color: var(--accent-cyan);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.5px;
+}
+
+.ctf-compact-context {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+}
+
+.ctf-compact-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+/* ── IMPACT NUMBER BADGE ── */
+.impact-number {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    color: var(--accent-green);
+    border: 1px solid rgba(0,230,118,0.25);
+    padding: 1px 7px;
+    border-radius: 2px;
+    background: rgba(0,230,118,0.06);
+    margin: 0 2px;
+}
+
+/* ── PHI SECTION DIVIDER ── */
+.phi-divider {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 2.5rem 0;
+    opacity: 0.35;
+}
+
+.phi-divider::before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan));
+}
+
+.phi-divider-glyph {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    color: var(--accent-cyan);
+    letter-spacing: 3px;
+    padding: 0 1rem;
+}
+
+.phi-divider::after {
+    content: '';
+    flex: 1.618; /* golden ratio */
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-cyan), transparent);
+}
+
+/* ── SKILLS PAGE: TIER DOTS ── */
+.skill-tier {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+.tier-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--border-dim);
+    border: 1px solid rgba(0,245,233,0.08);
+}
+.tier-dot.filled {
+    background: var(--accent-cyan);
+    box-shadow: 0 0 4px var(--accent-cyan);
+    border-color: var(--accent-cyan);
+}
+.tier-dot.filled-amber {
+    background: var(--accent-amber);
+    box-shadow: 0 0 4px var(--accent-amber);
+    border-color: var(--accent-amber);
+}
+
+/* ── SKILLS PAGE: SUMMARY STRIP ── */
+.skills-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border-dim);
+    border: 1px solid var(--border-dim);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 2.5rem;
+}
+.summary-cell {
+    background: var(--bg-card);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: background 0.25s;
+}
+.summary-cell:hover { background: var(--bg-card-hover); }
+.summary-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-cyan);
+    line-height: 1;
+    text-shadow: 0 0 16px rgba(0,245,233,0.35);
+}
+.summary-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* ── SKILLS PAGE: PROFICIENCY LEGEND ── */
+.proficiency-legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-dim);
+    border-radius: 4px;
+}
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+}
+.legend-dots {
+    display: flex;
+    gap: 2px;
+}
+
+/* ── SKILLS PAGE: GROUP HEADER ── */
+.skill-group-header {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--accent-red);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(255,45,85,0.15);
+    opacity: 0.8;
+}
+
+/* ── PHI DIVIDER ── */
+.phi-divider {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    opacity: 0.3;
+}
+.phi-divider::before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan));
+}
+.phi-glyph {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.52rem;
+    color: var(--accent-cyan);
+    letter-spacing: 3px;
+    padding: 0 1rem;
+}
+.phi-divider::after {
+    content: '';
+    flex: 1.618;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-cyan), transparent);
+}
