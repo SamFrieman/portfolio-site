@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════
-   Visual Enhancements
+   DARKNET COMMAND CENTER — Visual Enhancements
    Samuel Frieman Portfolio
    ═══════════════════════════════════════════════════════ */
 
@@ -65,22 +65,6 @@
             }
         }
 
-        function drawSweep(x, y, r, angle, color) {
-            const fan = Math.PI / 3;
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            ctx.arc(x, y, r, angle - fan, angle);
-            ctx.closePath();
-            const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-            g.addColorStop(0,   rgba(color, 0.0));
-            g.addColorStop(0.5, rgba(color, 0.02));
-            g.addColorStop(1,   rgba(color, 0.1));
-            ctx.fillStyle = g;
-            ctx.fill();
-            ctx.restore();
-        }
-
         function draw() {
             const W = window.innerWidth, H = window.innerHeight;
             ctx.clearRect(0, 0, W, H);
@@ -112,9 +96,6 @@
                 ctx.fillStyle = rgba(col, t * 0.3);
                 ctx.fill();
             });
-
-            // Radar sweep
-            drawSweep(rx, ry, R2 + 6, rot * Math.PI / 180, col);
 
             // Outer segmented ring (4 segments, rotates)
             glow(col, 7);
@@ -260,8 +241,113 @@
         });
     }
 
+    /* ── Fibonacci Sphere Loader ── */
+    function initLoader() {
+        const cv = document.getElementById('loader-canvas');
+        if (!cv) return;
+        const ctx2 = cv.getContext('2d');
+        const W = 340, H = 340, CX = W / 2, CY = H / 2;
+        const N = 220, PHI = Math.PI * (3 - Math.sqrt(5));
+        const CYN2 = [0, 245, 233];
+
+        // Pre-compute Fibonacci sphere point positions
+        const pts = Array.from({ length: N }, (_, i) => {
+            const y   = 1 - (i / (N - 1)) * 2;
+            const r   = Math.sqrt(1 - y * y);
+            const th  = PHI * i;
+            return { ox: Math.cos(th) * r, oy: y, oz: Math.sin(th) * r };
+        });
+
+        let t = 0;
+        let animId;
+        const tasks = [
+            'INITIALIZING THREAT MATRIX…',
+            'LOADING OSINT MODULES…',
+            'SYNCING DARKNET FEEDS…',
+            'CALIBRATING RISK ENGINE…',
+            'SYSTEM ONLINE',
+        ];
+        const taskEl = document.getElementById('l-task');
+        const fillEl = document.getElementById('l-fill');
+        const pctEl  = document.getElementById('l-pct');
+        const tsEl   = document.getElementById('l-ts');
+        const loader = document.getElementById('loader');
+
+        let taskIdx = 0;
+        const taskInterval = setInterval(() => {
+            if (taskEl) {
+                taskEl.classList.remove('on');
+                setTimeout(() => {
+                    taskEl.textContent = tasks[taskIdx % tasks.length];
+                    taskEl.classList.add('on');
+                }, 100);
+            }
+            taskIdx++;
+        }, 800);
+
+        function utcClock() {
+            if (tsEl) tsEl.textContent = new Date().toISOString().slice(11, 19) + ' UTC';
+        }
+        utcClock();
+        const clockInterval = setInterval(utcClock, 1000);
+
+        function frame() {
+            ctx2.clearRect(0, 0, W, H);
+            t += 0.012;
+
+            // Progress 0→1 over ~4s at 60fps
+            const progress = Math.min(t / (4 * 0.012 * 60), 1);
+            if (fillEl) fillEl.style.width = (progress * 100) + '%';
+            if (pctEl)  pctEl.textContent  = Math.round(progress * 100) + '%';
+
+            const rotY = t * 0.4;
+            const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+
+            pts.forEach((p, i) => {
+                // Rotate around Y axis
+                const x3 = p.ox * cosY + p.oz * sinY;
+                const z3 = -p.ox * sinY + p.oz * cosY;
+                const y3 = p.oy;
+
+                // Wave propagation
+                const wave = Math.sin(t * 2 + i * 0.15) * 0.12;
+                const scale = 110 + wave * 40;
+
+                const sx = CX + x3 * scale;
+                const sy = CY + y3 * scale;
+
+                // Depth fade
+                const depth = (z3 + 1) / 2;
+                const alpha = 0.15 + depth * 0.7;
+                const r = 1.2 + depth * 1.4;
+
+                // Wave brightness pulse
+                const bright = 0.6 + Math.sin(t * 3 + i * 0.2) * 0.4;
+
+                ctx2.beginPath();
+                ctx2.arc(sx, sy, r, 0, Math.PI * 2);
+                ctx2.fillStyle = `rgba(${CYN2[0]},${CYN2[1]},${CYN2[2]},${alpha * bright})`;
+                ctx2.fill();
+            });
+
+            if (progress < 1) {
+                animId = requestAnimationFrame(frame);
+            } else {
+                // Done — fade out loader
+                clearInterval(taskInterval);
+                clearInterval(clockInterval);
+                if (loader) {
+                    loader.classList.add('loader-done');
+                    setTimeout(() => { loader.style.display = 'none'; }, 700);
+                }
+            }
+        }
+        animId = requestAnimationFrame(frame);
+    }
+
     /* ── Init ── */
     function init() {
+        initLoader();
         initCursor();
         initTypewriter();
         initReveal();
