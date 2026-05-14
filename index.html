@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Samuel Frieman — Cybersecurity</title>
-<meta name="description" content="Samuel Frieman — Cybersecurity student, penetration tester, OSINT analyst, and purple team operator at the University of Tampa."/>
+<meta name="description" content="Samuel Frieman — Cybersecurity student, Threat hunter, OSINT analyst, and purple team operator at the University of Tampa."/>
 <meta name="author" content="Samuel Frieman"/>
 <meta name="keywords" content="cybersecurity, OSINT, purple team, SOC automation, threat intelligence, University of Tampa"/>
 <meta name="theme-color" content="#030b18"/>
@@ -944,7 +944,7 @@ window.__sfTC = {
     {t:'ok',v:'  │ [TRIAGE]   ATT&CK mapping → T1566.001 Spearphishing  │'},
     {t:'ok',v:'  │ [ENRICH]   VirusTotal IOC → 3/68 engines flagged     │'},
     {t:'ok',v:'  │ [ENRICH]   Diamond Model  → Adversary: FIN7 cluster  │'},
-    {t:'warn',v:'  │ [ESCALATE] CVSS >= CRITICAL → notifying CISO channel │'},
+    {t:'warn',v:'│ [ESCALATE] CVSS >= CRITICAL → notifying CISO channel │'},
     {t:'ok',v:'  │ [CASE]     INC-2847 created → soc-lead notified      │'},
     {t:'ok',v:'  │ [BLOCK]    IOC added to firewall deny list            │'},
     {t:'data',v:'  └───────────────────────────────────────────────────────┘'},
@@ -1083,7 +1083,7 @@ const TERM_COMMANDS=(()=>{const t=window.__sfTC||{};try{delete window.__sfTC;}ca
 
 /* ─ Constants ─ */
 const TICKER=[['TRACE LABS CTF','RANK 10 / 650+ TEAMS'],['CompTIA Security+','CERTIFIED'],['GPA','3.60/4.00'],['NIST 800-53','300+ CONTROLS'],['VULNS FOUND','40+'],['M&A TARGETS','40+'],['PHISHING','−60%'],['GRADUATION','MAY 2026'],['GASPARILLA CTF','5th/15'],['DEFENDER','DEPLOYED'],['SIGINTX','OPEN SOURCE'],['OLLAMA','5 MODELS'],['REACT FLOW','CORRELATION ENGINE']];
-const PHRASES=['Penetration Tester.','OSINT Analyst.','Purple Team Operator.','SOC Automation Engineer.','Threat Intelligence Platform Developer.','Full-Stack Security Engineer.'];
+const PHRASES=['Threat Hunter.','OSINT Analyst.','Purple Team Operator.','SOC Automation Engineer.','Threat Intelligence Platform Developer.','Full-Stack Security Engineer.'];
 const STATS=[{n:40,s:'+',l:'Vulnerabilities Found'},{n:40,s:'+',l:'M&A Targets Assessed'},{n:300,s:'+',l:'NIST Controls Analyzed'},{n:60,s:'%',l:'Phishing Reduction'},{n:3.60,s:'',l:'GPA',d:2},{n:10,s:'th',l:'Trace Labs CTF Rank'}];
 const EXP=[
   {date:'June 2025–Aug 2025',title:'Cybersecurity Intern',co:'World Insurance Associates LLC — New York, NY',bullets:['Analyzed 300+ NIST 800-53 controls mapped to MITRE ATT&CK, identifying 12 critical gaps and delivering a prioritized remediation roadmap to executive leadership.','Performed OSINT reconnaissance on 40+ M&A targets using Shodan, Censys, and VirusTotal to assess organizational risk before deal closure.','Discovered 40+ vulnerabilities including SQL injection and XSS, delivering executive-ready remediation reports to the CISO.','Deployed Entra ID, Microsoft Defender, and Intune aligned to NIST CSF — improving security posture by 35%.']},
@@ -2301,7 +2301,7 @@ function Projects(){
 
 /* ─ Skills marquee data — hoisted outside component (was recreated every render) ─ */
 const SKILLS_MQ1=[
-  {t:'PENETRATION TESTING',c:'#ff3e6c'},{t:'THREAT HUNTING',c:'#00d4ff'},
+  {t:'THREAT INTELLIGENCE',c:'#ff3e6c'},{t:'THREAT HUNTING',c:'#00d4ff'},
   {t:'PURPLE TEAM',c:'#8b5cf6'},{t:'MITRE ATT\u0026CK',c:'#8b5cf6'},
   {t:'SOC AUTOMATION',c:'#00d4ff'},{t:'OSINT RECON',c:'#ff3e6c'},
   {t:'NIST 800-53',c:'#00ff8a'},{t:'INCIDENT RESPONSE',c:'#00d4ff'},
@@ -2658,7 +2658,7 @@ function Contact(){
           <Reveal><span className="sl" aria-hidden="true">Contact</span></Reveal>
           <Reveal delay={.1} variants={vC}><ScrambleH2 id="contact-heading" text="Ready to Work Together?" className="st"/></Reveal>
           <Reveal delay={.2} variants={vB}>
-            <p style={{color:'var(--muted)',fontSize:17,lineHeight:1.7,marginBottom:28}}>Whether you need a penetration tester, OSINT analyst, or someone who bridges offensive findings with executive-ready reporting — I'm open to internships, full-time roles, and project collaborations starting May 2026.</p>
+            <p style={{color:'var(--muted)',fontSize:17,lineHeight:1.7,marginBottom:28}}>Whether you need a threat hunter, OSINT analyst, or someone who bridges offensive findings with executive-ready reporting — I'm open to internships, full-time roles, and project collaborations starting May 2026.</p>
           </Reveal>
           <Reveal delay={.3}>
             <div className="clinks">
