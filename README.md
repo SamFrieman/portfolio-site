@@ -194,6 +194,47 @@ This portfolio template is free to use and modify for personal use. Attribution 
 - Cybersecurity-themed aesthetic
 - Professional storytelling approach
 
+## Future Updates
+1. REMOVE BABEL AT BUILD TIME (biggest single win, ~1MB saved)
+   - Run: npx babel index_optimized.html --presets @babel/preset-react -o index.prod.html
+   - Or use esbuild: esbuild --bundle --jsx=transform app.jsx --outfile=app.js
+   - Remove <script src="…babel.min.js"> and change type="text/babel" → type="module"
+   - Replace 'unsafe-inline' in CSP with a nonce: <script nonce="RAND"> + CSP header nonce=RAND
+   - Net result: ~1MB fewer bytes, ~40% faster parse + compile time
+
+2. SHARE useActiveSection VIA REACT CONTEXT (already partially done via module-level pub/sub)
+   - The current module-level pub/sub avoids double IntersectionObserver setup (was 12, now 6)
+   - A Context approach would be more idiomatic but adds complexity — current solution is fine
+
+3. VIRTUAL SCROLLING FOR TERMINAL HISTORY
+   - Currently: history.slice(-200) keeps DOM bounded to 200 entries max
+   - Better: use react-window or a manual windowed list for very long sessions
+   - Implement: show only entries visible in .oterm-body scroll viewport
+
+4. PRELOAD CRITICAL FONTS
+   - Add to <head>:
+     <link rel="preload" as="font" crossorigin href="https://fonts.gstatic.com/s/orbitron/v31/yMJMMIlzdpvBhQQL_SC3X9yhF25-T1nyGy6BoWgz.woff2"/>
+     <link rel="preload" as="font" crossorigin href="https://fonts.gstatic.com/s/jetbrainsmono/v18/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxjPVmUsaaDhw.woff2"/>
+   - Eliminates FOUT (flash of unstyled text) on first load
+
+5. IMAGE OPTIMISATION FOR OG/SOCIAL
+   - Add og:image as WebP with fallback: currently points to og.png
+   - Serve at exactly 1200×630px with quality ~85 for ~40KB vs typical ~200KB PNG
+
+6. SERVICE WORKER FOR OFFLINE/CACHE
+   - Cache CDN scripts (React, Framer Motion, Babel) with a service worker
+   - On repeat visits: load from cache, skip network round-trips (~800ms faster on 4G)
+
+7. REPLACE INLINE SVG GRAIN TEXTURE WITH CSS FILTER
+   - body::after currently embeds an SVG data URI (~400 bytes gzipped)
+   - CSS equivalent: backdrop-filter: contrast(1.02) brightness(0.99) + noise SVG as separate asset
+
+8. FURTHER CSP HARDENING PATH
+   - Step 1 (done): removed 'unsafe-eval' risk by never using eval()
+   - Step 2: After removing Babel, generate a random nonce per request server-side
+   - Step 3: Replace 'unsafe-inline' with nonce-XXXX in script-src
+   - Step 4: Add require-trusted-types-for 'script' for DOM XSS protection
+
 ---
 
 **Built by [Samuel Frieman](https://github.com/SamFrieman)** | Cybersecurity Professional
